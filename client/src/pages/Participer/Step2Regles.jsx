@@ -3,16 +3,15 @@ export default function Step2Regles({ onNext, onBack }) {
     <div className="form-card">
       <h3>Comment être retenu·e ?</h3>
       <p>
-        Sur "On se voix ?", ce qui compte, ce n'est pas à quel point vous êtes impressionnant⋅e,
-        mais à quel point vous êtes authentique, vrai⋅e, sincère. Ce sont les petits riens du
-        quotidien qui rendent attachant⋅e — pas un CV, ni le nombre de voyages qu'on a faits dans
-        sa vie.
+        Sur "On se voix ?", ce qui compte ce n'est pas votre physique ou votre CV, mais votre
+        authenticité et votre sincérité. On le sait, ce sont les petits riens du quotidien qui
+        rendent attachant⋅e.
       </p>
       <div className="funnel-actions">
-        <button type="button" className="btn btn--secondary" onClick={onBack}>
+        <button type="button" className="btn btn--secondary btn--sm" onClick={onBack}>
           Retour
         </button>
-        <button type="button" className="btn" onClick={onNext}>
+        <button type="button" className="btn btn--sm" onClick={onNext}>
           J'ai compris, participer
         </button>
       </div>

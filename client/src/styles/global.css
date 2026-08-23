@@ -626,6 +626,11 @@ a {
   box-shadow: none;
 }
 
+.btn--sm {
+  padding: 11px 20px;
+  font-size: 0.85rem;
+}
+
 .btn--secondary:hover:not(:disabled) {
   background: var(--color-violet);
   color: var(--color-white);
