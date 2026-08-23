@@ -162,35 +162,29 @@ a {
   justify-content: center;
   text-align: center;
   padding: 20px 28px;
-  background: var(--color-rose);
+  background: var(--color-violet);
   overflow: hidden;
 }
 
-.hero__shape {
+.hero__band {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: block;
+}
+
+.hero__band--lavande {
   z-index: 0;
 }
 
-.hero__shape--violet {
-  bottom: 8%;
-  left: -10%;
-  width: 105%;
-  aspect-ratio: 1;
+.hero__band--rose {
+  z-index: 1;
 }
 
-.hero__shape--lavande {
-  bottom: -4%;
-  left: 38%;
-  width: 42%;
-  aspect-ratio: 1;
-}
-
-.hero__shape--corail {
-  top: -12%;
-  right: -14%;
-  width: 62%;
-  aspect-ratio: 1;
+.hero__band--corail {
+  z-index: 2;
 }
 
 .hero__heart,
@@ -198,7 +192,7 @@ a {
 .hero__menu,
 .hero__links {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .hero__heart {
@@ -800,11 +794,4 @@ a {
     padding-top: 66px;
   }
 
-  .hero__shape--violet {
-    bottom: -20%;
-  }
-
-  .hero__shape--lavande {
-    bottom: -14%;
-  }
 }
