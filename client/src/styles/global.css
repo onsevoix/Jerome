@@ -174,7 +174,7 @@ a {
   aspect-ratio: 1;
   transform: translateX(-50%);
   border-radius: 50%;
-  background: var(--color-corail);
+  background: var(--color-violet);
   display: block;
   z-index: 0;
 }
@@ -239,8 +239,8 @@ a {
   margin-top: 28px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--color-violet);
-  opacity: 0.75;
+  color: var(--color-lavande);
+  opacity: 0.95;
 }
 
 .hero__links a {
