@@ -14,7 +14,7 @@ export default function Ecouter() {
       <h2 className="page__title page__title--centered">Écouter</h2>
       <p className="page__lead page__lead--centered">
         <strong className="page__lead-strong">On se voix ?</strong> est disponible gratuitement
-        sur toutes les plateformes d'écoute. Choisissez la vôtre :
+        sur toutes les plateformes d'écoute.
       </p>
       <div className="platform-grid">
         {platformLinks.map((platform) => {
