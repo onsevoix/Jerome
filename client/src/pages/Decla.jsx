@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { celibataires as fallbackCelibataires } from "../data/celibataires.js";
 import { sendDecla, fetchCelibataires } from "../lib/api.js";
-import EnvelopeLoop from "../components/icons/EnvelopeLoop.jsx";
+import WritingLoop from "../components/icons/WritingLoop.jsx";
 
 const MIN_MESSAGE_LENGTH = 500;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,7 +80,7 @@ export default function Decla() {
 
       {!started ? (
         <>
-          <EnvelopeLoop className="envelope-loop" />
+          <WritingLoop className="writing-loop" />
           <div className="decla__cta">
             <button type="button" className="btn" onClick={() => setStarted(true)}>
               Je me lance

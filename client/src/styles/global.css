@@ -270,64 +270,116 @@ a {
   }
 }
 
-.envelope-loop {
-  width: 84px;
+.writing-loop {
+  width: 92px;
   margin: 4px auto 20px;
   display: block;
+  overflow: visible;
 }
 
-.envelope__flap {
+.write-line {
   transform-box: fill-box;
-  transform-origin: 50% 0%;
-  animation: envelope-flap 5s ease-in-out infinite;
+  transform-origin: 0% 50%;
 }
 
-.envelope__heart {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  animation: envelope-heart 5s ease-in-out infinite;
+.write-line--1 {
+  animation: write-line-1 5s ease-in-out infinite;
 }
 
-@keyframes envelope-flap {
+.write-line--2 {
+  animation: write-line-2 5s ease-in-out infinite;
+}
+
+.write-line--3 {
+  animation: write-line-3 5s ease-in-out infinite;
+}
+
+.write-hand {
+  animation: pen-move 5s ease-in-out infinite;
+}
+
+@keyframes write-line-1 {
   0%,
-  32% {
-    transform: scaleY(-1);
+  4% {
+    transform: scaleX(0);
   }
-  42%,
-  58% {
-    transform: scaleY(1);
+  26%,
+  90% {
+    transform: scaleX(1);
   }
-  68%,
+  96%,
   100% {
-    transform: scaleY(-1);
+    transform: scaleX(0);
   }
 }
 
-@keyframes envelope-heart {
+@keyframes write-line-2 {
   0%,
-  32% {
-    opacity: 1;
-    transform: scale(1);
+  30% {
+    transform: scaleX(0);
   }
-  42%,
-  58% {
-    opacity: 0;
-    transform: scale(0.8);
+  52%,
+  90% {
+    transform: scaleX(1);
   }
-  68%,
+  96%,
   100% {
-    opacity: 1;
-    transform: scale(1);
+    transform: scaleX(0);
+  }
+}
+
+@keyframes write-line-3 {
+  0%,
+  56% {
+    transform: scaleX(0);
+  }
+  72%,
+  90% {
+    transform: scaleX(1);
+  }
+  96%,
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes pen-move {
+  0%,
+  4% {
+    transform: translate(26px, 26px);
+  }
+  26% {
+    transform: translate(72px, 26px);
+  }
+  30% {
+    transform: translate(26px, 40px);
+  }
+  52% {
+    transform: translate(64px, 40px);
+  }
+  56% {
+    transform: translate(26px, 54px);
+  }
+  72%,
+  90% {
+    transform: translate(50px, 54px);
+  }
+  96%,
+  100% {
+    transform: translate(26px, 26px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .envelope__flap,
-  .envelope__heart {
+  .write-line,
+  .write-hand {
     animation: none;
   }
-  .envelope__flap {
-    transform: scaleY(-1);
+  .write-line {
+    transform: scaleX(1);
+  }
+  .write-hand {
+    transform: translate(50px, 54px);
   }
 }
 
