@@ -101,15 +101,17 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
         </div>
 
         {vocalMode === "upload" && (
-          <input
-            type="file"
-            accept="audio/*"
-            onChange={(e) => setVocalFile(e.target.files?.[0] ?? null)}
-          />
+          <div className="vocal-panel">
+            <input
+              type="file"
+              accept="audio/*"
+              onChange={(e) => setVocalFile(e.target.files?.[0] ?? null)}
+            />
+          </div>
         )}
 
         {vocalMode === "record" && (
-          <div className="recorder">
+          <div className="vocal-panel">
             {!previewUrl && !isRecording && (
               <button type="button" className="btn btn--secondary" onClick={startRecording}>
                 🔴 Commencer l'enregistrement

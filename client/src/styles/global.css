@@ -627,7 +627,7 @@ a {
   width: 100%;
   padding: 12px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--color-rose);
+  border: none;
   background: var(--color-white);
   font-size: 0.9rem;
 }
@@ -820,11 +820,10 @@ a {
   color: var(--color-white);
 }
 
-.recorder {
+.vocal-panel {
   padding: 18px;
   border-radius: var(--radius-md);
-  background: var(--color-rose);
-  border: 2px dashed var(--color-corail);
+  background: var(--color-lavande);
 }
 
 .recorder__active {
@@ -836,7 +835,7 @@ a {
 .recorder__timer {
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--color-corail-dark);
+  color: var(--color-violet-dark);
 }
 
 .recorder__preview {
