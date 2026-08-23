@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { socialLinks } from "../data/links.js";
-import Heart from "../components/icons/Heart.jsx";
 
 const menu = [
   { to: "/ecouter", icon: "🎧", label: "Écouter le podcast" },
@@ -17,7 +16,6 @@ export default function Accueil() {
           fill="var(--color-corail)"
         />
       </svg>
-      <Heart className="hero__heart" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>
 
