@@ -14,7 +14,9 @@ export default function Accueil() {
       <HeartToAirpods className="hero__heart" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>
-      <p className="hero__subtitle">Le 1er podcast de rencontres</p>
+      <p className="hero__subtitle">
+        Le 1<sup>er</sup> podcast de rencontres
+      </p>
 
       <nav className="hero__menu">
         {menu.map((item) => (
