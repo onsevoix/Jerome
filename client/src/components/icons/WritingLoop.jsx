@@ -17,9 +17,15 @@ export default function WritingLoop(props) {
       <rect className="write-line write-line--3" x="26" y="52.5" width="24" height="3" rx="1.5" fill="var(--color-ink)" opacity="0.85" />
 
       <g className="write-hand">
-        <g transform="rotate(-25)">
-          <rect x="-1.6" y="-16" width="3.2" height="16" rx="1.6" fill="var(--color-corail)" stroke="var(--color-ink)" strokeWidth="1.6" />
-          <ellipse cx="3.5" cy="-15.5" rx="7.5" ry="6.2" fill="var(--color-white)" stroke="var(--color-ink)" strokeWidth="2.2" />
+        <g transform="rotate(-30)">
+          <path
+            d="M0,0 L-2.4,-4.5 L-2.4,-17 C-2.4,-18.7 -1.3,-20 0,-20 C1.3,-20 2.4,-18.7 2.4,-17 L2.4,-4.5 Z"
+            fill="var(--color-corail)"
+            stroke="var(--color-ink)"
+            strokeWidth="1.8"
+            strokeLinejoin="round"
+          />
+          <line x1="-2.4" y1="-4.5" x2="2.4" y2="-4.5" stroke="var(--color-ink)" strokeWidth="1.4" />
         </g>
       </g>
     </svg>
