@@ -13,12 +13,6 @@ export default function App() {
 
   return (
     <div className="app">
-      <div className="app__blobs" aria-hidden="true">
-        <span className="app__blob app__blob--corail" />
-        <span className="app__blob app__blob--violet" />
-        <span className="app__blob app__blob--rose" />
-      </div>
-
       <main className={`page ${isHome ? "page--hero" : ""}`} key={location.pathname}>
         <Routes>
           <Route path="/" element={<Accueil />} />

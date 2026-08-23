@@ -11,6 +11,7 @@ const menu = [
 export default function Accueil() {
   return (
     <section className="hero">
+      <span className="hero__blob" aria-hidden="true" />
       <Heart className="hero__heart" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>
