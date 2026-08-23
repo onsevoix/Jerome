@@ -1,5 +1,3 @@
-// TODO: complétez le lien TikTok avec la vraie URL.
-
 export const platformLinks = [
   {
     id: "spotify",
@@ -20,5 +18,5 @@ export const platformLinks = [
 
 export const socialLinks = {
   instagram: "https://instagram.com/onsevoix",
-  tiktok: "#", // TODO: coller le lien TikTok
+  tiktok: "https://www.tiktok.com/@onsevoix",
 };
