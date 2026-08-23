@@ -184,6 +184,15 @@ a {
   z-index: 1;
 }
 
+.hero__airpods {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  width: 68px;
+  height: 68px;
+  z-index: 1;
+}
+
 .hero__wordmark {
   font-family: var(--font-serif);
   font-weight: 600;

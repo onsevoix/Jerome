@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { socialLinks } from "../data/links.js";
+import Airpods from "../components/icons/Airpods.jsx";
 
 const menu = [
   { to: "/ecouter", icon: "🎧", label: "Écouter le podcast" },
@@ -16,6 +17,8 @@ export default function Accueil() {
           fill="var(--color-corail)"
         />
       </svg>
+
+      <Airpods className="hero__airpods" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>
 
