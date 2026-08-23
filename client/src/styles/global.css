@@ -755,6 +755,14 @@ a {
   transform: rotate(180deg);
 }
 
+.rule-example-toggle + p {
+  margin-top: 0;
+}
+
+.rule-step-label {
+  color: var(--color-violet);
+}
+
 .rule-example {
   margin: 0 0 16px;
   padding: 16px 18px;

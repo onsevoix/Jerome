@@ -9,12 +9,12 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
       <p>C'est très simple, votre vocal a un début, un milieu, une fin 😊</p>
 
       <p>
-        <strong>Pour le début :</strong> votre vocal doit commencer par « Hello Mahé, c'est
+        <strong className="rule-step-label">Pour le début :</strong> votre vocal doit commencer par « Hello Mahé, c'est
         (VOTRE PRÉNOM), j'habite à (VILLE OU RÉGION), et j'ai (ÂGE) ».
       </p>
 
       <p>
-        <strong>Pour le milieu :</strong> listez au moins 30 choses que vous aimez et qui vous
+        <strong className="rule-step-label">Pour le milieu :</strong> listez au moins 30 choses que vous aimez et qui vous
         définissent vraiment. Pas les choses que tout le monde aime, mais les petites choses du
         quotidien qui vous caractérisent et vous définissent.
       </p>
@@ -57,7 +57,7 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
       </p>
 
       <p>
-        <strong>Pour la fin :</strong> terminez votre vocal en nous en disant plus sur ce que vous
+        <strong className="rule-step-label">Pour la fin :</strong> terminez votre vocal en nous en disant plus sur ce que vous
         recherchez aujourd'hui. N'hésitez pas à donner quelques green flags et quelques red flags
         🚩
       </p>
