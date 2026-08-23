@@ -3,7 +3,8 @@ export default function Step2Regles({ onNext, onBack }) {
     <div className="form-card">
       <h3>Comment être retenu·e ?</h3>
       <p>
-        Sur "On se voix ?", ce qui compte ce n'est pas votre physique ou votre CV, mais votre
+        Sur <strong className="page__lead-strong">On se voix ?</strong>, ce qui compte ce n'est
+        pas votre physique ou votre CV, mais votre
         authenticité : ce que vous faites quand vous êtes seul⋅e chez vous, vos petites
         obsessions, vos jolis défauts… On le sait, ce sont les petits riens du quotidien qui
         rendent attachant⋅e.
