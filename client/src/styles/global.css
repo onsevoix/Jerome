@@ -360,14 +360,12 @@ a {
   font-weight: 600;
   font-size: 2.4rem;
   color: var(--color-corail);
-  margin: 12px 0 8px;
+  margin: 12px 0 2px;
 }
 
 .hero__subtitle {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--color-violet);
+  font-size: 0.9rem;
+  color: #5a4a58;
   margin: 0 0 32px;
 }
 
@@ -400,15 +398,18 @@ a {
 
 .hero__menu-item--rose {
   background: var(--color-rose);
+  border-color: var(--color-corail);
 }
 
 .hero__menu-item--lavande {
   background: var(--color-lavande);
+  border-color: var(--color-violet-dark);
   color: var(--color-violet-dark);
 }
 
 .hero__menu-item--violet {
   background: var(--color-violet-dark);
+  border-color: var(--color-lavande);
   color: var(--color-white);
 }
 
