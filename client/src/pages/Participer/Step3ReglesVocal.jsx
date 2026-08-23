@@ -2,17 +2,17 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
   return (
     <div className="form-card">
       <h3>Quelles sont les règles pour le vocal ?</h3>
-      <p>C'est très simple, ton vocal a un début, un milieu, une fin :)</p>
+      <p>C'est très simple, votre vocal a un début, un milieu, une fin :)</p>
 
       <p>
-        <strong>Pour le début :</strong> ton vocal doit commencer par « Hello Mahé, c'est
-        (TON PRÉNOM), j'habite à (VILLE OU RÉGION), et j'ai (ÂGE) ».
+        <strong>Pour le début :</strong> votre vocal doit commencer par « Hello Mahé, c'est
+        (VOTRE PRÉNOM), j'habite à (VILLE OU RÉGION), et j'ai (ÂGE) ».
       </p>
 
       <p>
-        <strong>Pour le milieu :</strong> liste au moins 30 choses que tu aimes et qui te
+        <strong>Pour le milieu :</strong> listez au moins 30 choses que vous aimez et qui vous
         définissent vraiment. Pas les choses que tout le monde aime, mais les petites choses qui
-        te caractérisent et te définissent.
+        vous caractérisent et vous définissent.
       </p>
 
       <div className="rule-example">
@@ -27,11 +27,11 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
       </div>
 
       <p>
-        <em>PS : ne cherche pas à te vendre, dis-nous ce que tu ressens au fond de toi.</em>
+        <em>PS : ne cherchez pas à vous vendre, dites-nous ce que vous ressentez au fond de vous.</em>
       </p>
 
       <p>
-        <strong>Pour la fin :</strong> trouve ta propre manière de conclure, en une phrase.
+        <strong>Pour la fin :</strong> trouvez votre propre manière de conclure, en une phrase.
       </p>
 
       <div className="funnel-actions">

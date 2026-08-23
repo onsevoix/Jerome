@@ -118,7 +118,7 @@ export default function Step4Formulaire({ onBack }) {
       <div className="form-card confirmation">
         <p className="confirmation__emoji">🎙️</p>
         <p className="confirmation__text">
-          Merci {form.prenom}, nous avons bien reçu ton vocal. Si tu es retenu⋅e, nous te
+          Merci {form.prenom}, nous avons bien reçu votre vocal. Si vous êtes retenu⋅e, nous vous
           recontacterons dans les prochaines semaines.
         </p>
         <p>En attendant, découvre les épisodes déjà en ligne :</p>
@@ -131,7 +131,7 @@ export default function Step4Formulaire({ onBack }) {
 
   return (
     <form className="form-card" onSubmit={handleSubmit}>
-      <h3>Dépose ton vocal</h3>
+      <h3>Déposez votre vocal</h3>
 
       <div className="field">
         <label htmlFor="prenom" className="required">
@@ -177,12 +177,12 @@ export default function Step4Formulaire({ onBack }) {
 
       <div className="field">
         <label htmlFor="instagram" className="required">
-          Ton compte Instagram
+          Votre compte Instagram
         </label>
         <input
           id="instagram"
           type="text"
-          placeholder="@tonpseudo"
+          placeholder="@votrepseudo"
           value={form.instagram}
           onChange={updateField("instagram")}
           required
@@ -191,7 +191,7 @@ export default function Step4Formulaire({ onBack }) {
       </div>
 
       <div className="field">
-        <label className="required">Ton vocal</label>
+        <label className="required">Votre vocal</label>
 
         <div className="vocal-tabs">
           <button
