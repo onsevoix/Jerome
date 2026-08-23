@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { socialLinks } from "../data/links.js";
-import Airpods from "../components/icons/Airpods.jsx";
+import Heart from "../components/icons/Heart.jsx";
 
 const menu = [
   { to: "/ecouter", icon: "🎧", label: "Écouter le podcast" },
@@ -11,14 +11,9 @@ const menu = [
 export default function Accueil() {
   return (
     <section className="hero">
-      <svg className="hero__blob" viewBox="0 0 100 100" aria-hidden="true">
-        <path
-          d="M51.04,84.38 C51.04,84.38 10.42,59.58 10.42,33.96 C10.42,21.67 19.79,12.92 31.25,12.92 C39.38,12.92 45.83,17.71 49.17,24.58 C51.67,17.08 58.96,11.88 67.08,11.88 C79.17,11.88 88.54,22.08 88.54,35.42 C88.54,51.25 72.71,66.67 51.04,84.38 Z"
-          fill="var(--color-corail)"
-        />
-      </svg>
+      <span className="hero__shape" aria-hidden="true" />
 
-      <Airpods className="hero__airpods" />
+      <Heart className="hero__heart" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>
 
