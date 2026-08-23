@@ -19,7 +19,7 @@ export default function Participer() {
 
   return (
     <section>
-      <h2 className="page__title">Participer au podcast 🎙️</h2>
+      <h2 className="page__title page__title--centered">Participer</h2>
 
       <div className="funnel-steps">
         {Array.from({ length: TOTAL_STEPS }, (_, i) => (

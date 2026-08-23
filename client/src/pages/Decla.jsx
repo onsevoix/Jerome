@@ -58,7 +58,7 @@ export default function Decla() {
   if (sent) {
     return (
       <section>
-        <h2 className="page__title">Faire une décla 💌</h2>
+        <h2 className="page__title page__title--centered">Décla</h2>
         <div className="form-card confirmation">
           <p className="confirmation__emoji">💌</p>
           <p className="confirmation__text">
@@ -72,8 +72,8 @@ export default function Decla() {
 
   return (
     <section>
-      <h2 className="page__title">Faire une décla 💌</h2>
-      <p className="page__lead">
+      <h2 className="page__title page__title--centered">Décla</h2>
+      <p className="page__lead page__lead--centered">
         Vous avez eu un crush vocal sur un⋅e célibataire ? Envoyez-lui un mot.
       </p>
 
