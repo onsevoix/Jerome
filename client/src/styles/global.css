@@ -162,36 +162,8 @@ a {
   justify-content: center;
   text-align: center;
   padding: 20px 28px;
-  background: var(--color-rose);
+  background: var(--color-cream);
   overflow: hidden;
-}
-
-.hero__shape {
-  position: absolute;
-  display: block;
-  z-index: 0;
-}
-
-.hero__shape--violet {
-  bottom: 18%;
-  left: -8%;
-  width: 118%;
-  aspect-ratio: 1;
-}
-
-.hero__shape--lavande {
-  bottom: 2%;
-  right: 6%;
-  width: 44%;
-  aspect-ratio: 1;
-}
-
-.hero__heart,
-.hero__wordmark,
-.hero__menu,
-.hero__links {
-  position: relative;
-  z-index: 3;
 }
 
 .hero__heart {
@@ -388,7 +360,15 @@ a {
   font-weight: 600;
   font-size: 2.4rem;
   color: var(--color-corail);
-  margin: 12px 0 40px;
+  margin: 12px 0 8px;
+}
+
+.hero__subtitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-violet);
+  margin: 0 0 32px;
 }
 
 .hero__menu {
@@ -418,6 +398,20 @@ a {
   transform: translateY(-2px);
 }
 
+.hero__menu-item--rose {
+  background: var(--color-rose);
+}
+
+.hero__menu-item--lavande {
+  background: var(--color-lavande);
+  color: var(--color-violet-dark);
+}
+
+.hero__menu-item--violet {
+  background: var(--color-violet-dark);
+  color: var(--color-white);
+}
+
 .hero__menu-icon {
   font-size: 1.2rem;
 }
@@ -429,8 +423,8 @@ a {
   margin-top: 28px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--color-lavande);
-  opacity: 0.95;
+  color: var(--color-violet);
+  opacity: 0.6;
 }
 
 .hero__links a {
@@ -968,13 +962,5 @@ a {
 
   .page:not(.page--hero) {
     padding-top: 66px;
-  }
-
-  .hero__shape--violet {
-    bottom: 2%;
-  }
-
-  .hero__shape--lavande {
-    bottom: -14%;
   }
 }
