@@ -13,7 +13,8 @@ export default function Ecouter() {
     <section>
       <h2 className="page__title page__title--centered">Écouter</h2>
       <p className="page__lead page__lead--centered">
-        "On se voix ?" est disponible sur toutes les plateformes d'écoute. Choisissez la vôtre :
+        <strong className="page__lead-strong">On se voix ?</strong> est disponible gratuitement
+        sur toutes les plateformes d'écoute. Choisissez la vôtre :
       </p>
       <div className="platform-grid">
         {platformLinks.map((platform) => {
@@ -39,8 +40,8 @@ export default function Ecouter() {
         <Heart className="rating-callout__heart" />
         <h3 className="rating-callout__title">Vous aimez le podcast ?</h3>
         <p className="rating-callout__text">
-          Laissez-nous 5 étoiles sur votre plateforme préférée, ça nous aide vraiment à faire
-          grandir "On se voix ?"&nbsp;!
+          Laissez-nous 5 étoiles sur votre plateforme préférée, ça nous aide à faire grandir la
+          communauté&nbsp;!
         </p>
       </div>
     </section>
