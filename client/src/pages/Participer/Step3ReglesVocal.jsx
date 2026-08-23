@@ -9,8 +9,10 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
       <p>C'est très simple, votre vocal a un début, un milieu, une fin 😊</p>
 
       <p>
-        <strong className="rule-step-label">Pour le début :</strong> votre vocal doit commencer par « Hello Mahé, c'est
-        (VOTRE PRÉNOM), j'habite à (VILLE OU RÉGION), et j'ai (ÂGE) ».
+        <strong className="rule-step-label">Pour le début :</strong> votre vocal doit commencer par « Hello Mahé, c'est{" "}
+        <span className="rule-placeholder">VOTRE PRÉNOM</span>, j'habite à{" "}
+        <span className="rule-placeholder">VILLE OU RÉGION</span>, et j'ai{" "}
+        <span className="rule-placeholder">ÂGE</span> ».
       </p>
 
       <p>
