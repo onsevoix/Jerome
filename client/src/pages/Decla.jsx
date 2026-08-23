@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { celibataires as fallbackCelibataires } from "../data/celibataires.js";
 import { sendDecla, fetchCelibataires } from "../lib/api.js";
+import EnvelopeLoop from "../components/icons/EnvelopeLoop.jsx";
 
 const MIN_MESSAGE_LENGTH = 500;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -58,7 +59,7 @@ export default function Decla() {
   if (sent) {
     return (
       <section>
-        <h2 className="page__title page__title--centered">Décla</h2>
+        <h2 className="page__title page__title--centered">Faire une décla</h2>
         <div className="form-card confirmation">
           <p className="confirmation__emoji">💌</p>
           <p className="confirmation__text">
@@ -72,15 +73,20 @@ export default function Decla() {
 
   return (
     <section>
-      <h2 className="page__title page__title--centered">Décla</h2>
+      <h2 className="page__title page__title--centered">Faire une décla</h2>
       <p className="page__lead page__lead--centered">
         Vous avez eu un crush vocal sur un⋅e célibataire ? Envoyez-lui un mot.
       </p>
 
       {!started ? (
-        <button type="button" className="btn" onClick={() => setStarted(true)}>
-          Je me lance
-        </button>
+        <>
+          <EnvelopeLoop className="envelope-loop" />
+          <div className="decla__cta">
+            <button type="button" className="btn" onClick={() => setStarted(true)}>
+              Je me lance
+            </button>
+          </div>
+        </>
       ) : (
         <form className="form-card" onSubmit={handleSubmit}>
           <div className="field">
