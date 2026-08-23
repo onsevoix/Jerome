@@ -168,9 +168,9 @@ a {
 
 .hero__blob {
   position: absolute;
-  bottom: -34%;
+  bottom: -30%;
   left: 54%;
-  width: 165%;
+  width: 148%;
   aspect-ratio: 1;
   transform: translateX(-50%) rotate(-15deg);
   display: block;
