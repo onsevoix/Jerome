@@ -168,33 +168,29 @@ a {
 
 .hero__shape {
   position: absolute;
-  border-radius: 50%;
   display: block;
   z-index: 0;
 }
 
 .hero__shape--violet {
-  bottom: -14%;
-  left: -28%;
-  width: 130%;
+  bottom: 8%;
+  left: -10%;
+  width: 105%;
   aspect-ratio: 1;
-  background: var(--color-violet);
 }
 
 .hero__shape--lavande {
-  bottom: -6%;
+  bottom: -4%;
   left: 38%;
-  width: 62%;
+  width: 42%;
   aspect-ratio: 1;
-  background: var(--color-lavande);
 }
 
 .hero__shape--corail {
-  top: -14%;
-  right: -22%;
+  top: -12%;
+  right: -14%;
   width: 62%;
   aspect-ratio: 1;
-  background: var(--color-corail);
 }
 
 .hero__heart,
@@ -805,10 +801,10 @@ a {
   }
 
   .hero__shape--violet {
-    bottom: -44%;
+    bottom: -20%;
   }
 
   .hero__shape--lavande {
-    bottom: -16%;
+    bottom: -14%;
   }
 }
