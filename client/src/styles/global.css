@@ -627,8 +627,9 @@ a {
   width: 100%;
   padding: 12px;
   border-radius: var(--radius-md);
-  border: 2px dashed var(--color-corail);
-  background: var(--color-rose);
+  border: 2px solid var(--color-rose);
+  background: var(--color-white);
+  font-size: 0.9rem;
 }
 
 .decla__cta {
@@ -808,6 +809,7 @@ a {
   color: var(--color-violet);
   font-family: var(--font-heading);
   font-weight: 700;
+  font-size: 0.82rem;
   cursor: pointer;
   transition: all 0.2s var(--ease-soft);
 }

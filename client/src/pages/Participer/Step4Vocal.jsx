@@ -80,7 +80,7 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
 
   return (
     <div className="form-card">
-      <h3>Votre vocal</h3>
+      <h3>Déposez votre vocal</h3>
 
       <div className="field">
         <div className="vocal-tabs">

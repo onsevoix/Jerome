@@ -52,7 +52,7 @@ export default function Step5Formulaire({ vocalFile, onBack }) {
 
   return (
     <form className="form-card" onSubmit={handleSubmit}>
-      <h3>Vos coordonnées</h3>
+      <h3>Dernière étape</h3>
 
       <div className="field">
         <label htmlFor="prenom" className="required">
@@ -112,10 +112,10 @@ export default function Step5Formulaire({ vocalFile, onBack }) {
       </div>
 
       <div className="funnel-actions">
-        <button type="button" className="btn btn--secondary" onClick={onBack} disabled={submitting}>
+        <button type="button" className="btn btn--secondary btn--sm" onClick={onBack} disabled={submitting}>
           Retour
         </button>
-        <button type="submit" className="btn" disabled={!canSubmit}>
+        <button type="submit" className="btn btn--sm" disabled={!canSubmit}>
           {submitting ? "Envoi en cours…" : "Envoyer ma candidature"}
         </button>
       </div>
