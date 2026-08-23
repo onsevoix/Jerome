@@ -342,12 +342,23 @@ a {
   margin: 0 0 6px;
 }
 
+.page__title--centered {
+  text-align: center;
+  margin: 28px auto 8px;
+}
+
 .page__lead {
   margin: 0 0 22px;
   max-width: 40ch;
   color: #5a4a58;
   line-height: 1.5;
   font-size: 0.98rem;
+}
+
+.page__lead--centered {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ---------- Écouter : cartes plateformes ---------- */

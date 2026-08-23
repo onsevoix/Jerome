@@ -11,8 +11,8 @@ const icons = {
 export default function Ecouter() {
   return (
     <section>
-      <h2 className="page__title">Écouter le podcast 🎧</h2>
-      <p className="page__lead">
+      <h2 className="page__title page__title--centered">Écouter</h2>
+      <p className="page__lead page__lead--centered">
         "On se voix ?" est disponible sur toutes les plateformes d'écoute. Choisissez la vôtre :
       </p>
       <div className="platform-grid">
