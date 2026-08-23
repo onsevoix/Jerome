@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { socialLinks } from "../data/links.js";
-import Heart from "../components/icons/Heart.jsx";
+import HeartToAirpods from "../components/icons/HeartToAirpods.jsx";
 
 const menu = [
   { to: "/ecouter", icon: "🎧", label: "Écouter le podcast" },
@@ -13,7 +13,7 @@ export default function Accueil() {
     <section className="hero">
       <span className="hero__shape" aria-hidden="true" />
 
-      <Heart className="hero__heart" />
+      <HeartToAirpods className="hero__heart" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>
 

@@ -191,6 +191,76 @@ a {
   width: 44px;
   height: 44px;
   animation: pop-in 0.6s var(--ease-soft) both;
+  overflow: visible;
+}
+
+.morph {
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+}
+
+.morph--heart {
+  animation: morph-heart 5s ease-in-out infinite;
+}
+
+.morph--airpods {
+  animation: morph-airpods 5s ease-in-out infinite;
+}
+
+@keyframes morph-heart {
+  0%,
+  32% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  42% {
+    opacity: 0;
+    transform: scale(0.55) rotate(35deg);
+  }
+  58% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-35deg);
+  }
+  68%,
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes morph-airpods {
+  0%,
+  32% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-35deg);
+  }
+  42% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-35deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  58% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  68%,
+  100% {
+    opacity: 0;
+    transform: scale(0.55) rotate(35deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph--heart,
+  .morph--airpods {
+    animation: none;
+  }
+  .morph--airpods {
+    opacity: 0;
+  }
 }
 
 .hero__wordmark {
