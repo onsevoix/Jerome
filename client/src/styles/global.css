@@ -168,15 +168,33 @@ a {
 
 .hero__shape {
   position: absolute;
-  bottom: -30%;
-  left: 50%;
-  width: 160%;
-  aspect-ratio: 1;
-  transform: translateX(-50%);
   border-radius: 50%;
-  background: var(--color-violet);
   display: block;
   z-index: 0;
+}
+
+.hero__shape--violet {
+  bottom: -14%;
+  left: -28%;
+  width: 130%;
+  aspect-ratio: 1;
+  background: var(--color-violet);
+}
+
+.hero__shape--lavande {
+  bottom: -6%;
+  left: 38%;
+  width: 62%;
+  aspect-ratio: 1;
+  background: var(--color-lavande);
+}
+
+.hero__shape--corail {
+  top: -14%;
+  right: -22%;
+  width: 62%;
+  aspect-ratio: 1;
+  background: var(--color-corail);
 }
 
 .hero__heart,
@@ -786,7 +804,11 @@ a {
     padding-top: 66px;
   }
 
-  .hero__shape {
-    bottom: -42%;
+  .hero__shape--violet {
+    bottom: -44%;
+  }
+
+  .hero__shape--lavande {
+    bottom: -16%;
   }
 }

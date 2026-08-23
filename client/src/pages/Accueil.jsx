@@ -11,7 +11,9 @@ const menu = [
 export default function Accueil() {
   return (
     <section className="hero">
-      <span className="hero__shape" aria-hidden="true" />
+      <span className="hero__shape hero__shape--corail" aria-hidden="true" />
+      <span className="hero__shape hero__shape--violet" aria-hidden="true" />
+      <span className="hero__shape hero__shape--lavande" aria-hidden="true" />
 
       <HeartToAirpods className="hero__heart" />
 
