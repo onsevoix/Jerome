@@ -11,7 +11,17 @@ const menu = [
 export default function Accueil() {
   return (
     <section className="hero">
-      <span className="hero__blob" aria-hidden="true" />
+      <svg
+        className="hero__blob"
+        viewBox="0 0 400 220"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,220 L0,100 C30,70 55,125 90,110 C130,92 145,45 185,55 C220,63 225,115 260,120 C300,126 310,60 350,68 C375,73 390,95 400,90 L400,220 Z"
+          fill="var(--color-lavande)"
+        />
+      </svg>
       <Heart className="hero__heart" />
 
       <h1 className="hero__wordmark">On se voix ?</h1>

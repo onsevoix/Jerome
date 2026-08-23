@@ -169,14 +169,13 @@ a {
 .hero__blob {
   position: absolute;
   left: 50%;
-  bottom: -18vw;
+  bottom: -14vw;
   width: 130vw;
-  height: 60vw;
+  height: 95vw;
   max-width: 700px;
-  max-height: 320px;
+  max-height: 480px;
   transform: translateX(-50%);
-  border-radius: 50%;
-  background: var(--color-lavande);
+  display: block;
   z-index: 0;
 }
 
