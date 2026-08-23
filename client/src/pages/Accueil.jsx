@@ -11,15 +11,10 @@ const menu = [
 export default function Accueil() {
   return (
     <section className="hero">
-      <svg
-        className="hero__blob"
-        viewBox="0 0 400 220"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
+      <svg className="hero__blob" viewBox="0 0 100 100" aria-hidden="true">
         <path
-          d="M0,220 L0,100 C30,70 55,125 90,110 C130,92 145,45 185,55 C220,63 225,115 260,120 C300,126 310,60 350,68 C375,73 390,95 400,90 L400,220 Z"
-          fill="var(--color-lavande)"
+          d="M51.04,84.38 C51.04,84.38 10.42,59.58 10.42,33.96 C10.42,21.67 19.79,12.92 31.25,12.92 C39.38,12.92 45.83,17.71 49.17,24.58 C51.67,17.08 58.96,11.88 67.08,11.88 C79.17,11.88 88.54,22.08 88.54,35.42 C88.54,51.25 72.71,66.67 51.04,84.38 Z"
+          fill="var(--color-corail)"
         />
       </svg>
       <Heart className="hero__heart" />
