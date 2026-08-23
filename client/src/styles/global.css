@@ -162,29 +162,28 @@ a {
   justify-content: center;
   text-align: center;
   padding: 20px 28px;
-  background: var(--color-violet);
+  background: var(--color-rose);
   overflow: hidden;
 }
 
-.hero__band {
+.hero__shape {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: block;
-}
-
-.hero__band--lavande {
   z-index: 0;
 }
 
-.hero__band--rose {
-  z-index: 1;
+.hero__shape--violet {
+  bottom: 18%;
+  left: -8%;
+  width: 118%;
+  aspect-ratio: 1;
 }
 
-.hero__band--corail {
-  z-index: 2;
+.hero__shape--lavande {
+  bottom: 2%;
+  right: 6%;
+  width: 44%;
+  aspect-ratio: 1;
 }
 
 .hero__heart,
@@ -794,4 +793,11 @@ a {
     padding-top: 66px;
   }
 
+  .hero__shape--violet {
+    bottom: 2%;
+  }
+
+  .hero__shape--lavande {
+    bottom: -14%;
+  }
 }

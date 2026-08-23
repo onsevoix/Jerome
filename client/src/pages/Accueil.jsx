@@ -11,36 +11,15 @@ const menu = [
 export default function Accueil() {
   return (
     <section className="hero">
-      <svg
-        className="hero__band hero__band--corail"
-        viewBox="0 0 400 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
+      <svg className="hero__shape hero__shape--violet" viewBox="0 0 100 100" aria-hidden="true">
         <path
-          d="M0,0 L400,0 L400,22 C370,32 340,15 300,20 C260,26 235,12 190,19 C150,25 130,14 90,20 C55,25 30,18 0,23 Z"
-          fill="var(--color-corail)"
+          d="M-15,115 L-15,65 C0,55 10,72 26,64 C44,55 38,28 58,24 C78,20 78,46 98,40 C112,36 106,12 125,18 L125,115 Z"
+          fill="var(--color-violet)"
         />
       </svg>
-      <svg
-        className="hero__band hero__band--rose"
-        viewBox="0 0 400 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
+      <svg className="hero__shape hero__shape--lavande" viewBox="0 0 100 100" aria-hidden="true">
         <path
-          d="M0,0 L400,0 L400,54 C365,66 335,45 295,53 C250,62 225,42 180,50 C140,57 115,40 75,48 C40,55 15,48 0,54 Z"
-          fill="var(--color-rose)"
-        />
-      </svg>
-      <svg
-        className="hero__band hero__band--lavande"
-        viewBox="0 0 400 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M0,0 L400,0 L400,64 C368,74 340,58 298,64 C255,70 230,55 185,61 C145,67 118,53 78,60 C42,65 18,60 0,64 Z"
+          d="M52,8 C74,3 96,20 93,44 C90,66 68,84 44,81 C20,78 2,58 7,35 C11,16 30,13 52,8 Z"
           fill="var(--color-lavande)"
         />
       </svg>
