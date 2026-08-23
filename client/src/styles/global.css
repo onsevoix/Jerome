@@ -732,14 +732,16 @@ a {
 }
 
 .rule-example-toggle {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: flex-end;
   gap: 6px;
   margin: 4px 0 16px;
   padding: 0;
   border: none;
   background: none;
-  color: var(--color-violet);
+  color: color-mix(in srgb, var(--color-violet) 55%, white);
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
