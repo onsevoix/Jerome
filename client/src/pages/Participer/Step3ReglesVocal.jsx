@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function Step3ReglesVocal({ onNext, onBack }) {
+  const [showExamples, setShowExamples] = useState(false);
+
   return (
     <div className="form-card">
       <h3>Quelles sont les règles pour le vocal ?</h3>
@@ -15,17 +19,38 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
         quotidien qui vous caractérisent et vous définissent.
       </p>
 
-      <div className="rule-example">
-        <p className="rule-example__bad">
-          ❌ J'aime le chocolat, aller au ciné, les vacances et voir mes potes.
-        </p>
-        <p className="rule-example__good">
-          ✅ J'aime partir en vacances dans les pays froids (même en été), j'aime aller au cinéma
-          mais je déteste y aller avec quelqu'un, je préfère débattre avec mes potes plutôt que
-          raconter ma vie, j'adore les jeux de société mais qu'entre novembre et février, quand il
-          fait vraiment froid.
-        </p>
-      </div>
+      <button
+        type="button"
+        className="rule-example-toggle"
+        aria-expanded={showExamples}
+        onClick={() => setShowExamples((v) => !v)}
+      >
+        {showExamples ? "Masquer l'exemple" : "Voir un exemple"}
+        <svg className="rule-example-toggle__chevron" viewBox="0 0 16 16" aria-hidden="true">
+          <path
+            d="M4 6l4 4 4-4"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      {showExamples && (
+        <div className="rule-example">
+          <p className="rule-example__bad">
+            ❌ J'aime le chocolat, aller au ciné, les vacances et voir mes potes.
+          </p>
+          <p className="rule-example__good">
+            ✅ J'aime partir en vacances dans les pays froids (même en été), j'aime aller au
+            cinéma mais je déteste y aller avec quelqu'un, je préfère débattre avec mes potes
+            plutôt que raconter ma vie, j'adore les jeux de société mais qu'entre novembre et
+            février, quand il fait vraiment froid.
+          </p>
+        </div>
+      )}
 
       <p>
         <em>PS : ne cherchez pas à vous vendre, dites-nous ce que vous ressentez au fond de vous.</em>

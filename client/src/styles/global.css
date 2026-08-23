@@ -731,8 +731,32 @@ a {
   background: var(--color-corail);
 }
 
+.rule-example-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-violet);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.rule-example-toggle__chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.rule-example-toggle[aria-expanded="true"] .rule-example-toggle__chevron {
+  transform: rotate(180deg);
+}
+
 .rule-example {
-  margin: 16px 0;
+  margin: 0 0 16px;
   padding: 16px 18px;
   border-radius: var(--radius-md);
   background: var(--color-rose);
