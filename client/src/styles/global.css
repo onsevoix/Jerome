@@ -396,20 +396,23 @@ a {
   transform: translateY(-2px);
 }
 
+.hero__menu-item--rose,
+.hero__menu-item--lavande,
+.hero__menu-item--violet {
+  border-color: color-mix(in srgb, var(--color-ink) 15%, white);
+}
+
 .hero__menu-item--rose {
   background: var(--color-rose);
-  border-color: var(--color-corail);
 }
 
 .hero__menu-item--lavande {
   background: var(--color-lavande);
-  border-color: var(--color-violet-dark);
   color: var(--color-violet-dark);
 }
 
 .hero__menu-item--violet {
   background: var(--color-violet-dark);
-  border-color: var(--color-lavande);
   color: var(--color-white);
 }
 
