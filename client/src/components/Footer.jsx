@@ -13,6 +13,8 @@ export default function Footer() {
       </a>
       <span aria-hidden="true">·</span>
       <Link to="/a-propos">À propos de nous</Link>
+      <span aria-hidden="true">·</span>
+      <Link to="/mentions-legales">Mentions légales</Link>
     </footer>
   );
 }
