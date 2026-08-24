@@ -45,10 +45,7 @@ export async function sendParticipation({ prenom, ville, age, email, instagram, 
 }
 
 export async function fetchCelibataires() {
-  const { data, error } = await supabase
-    .from("celibataires")
-    .select("nom")
-    .order("created_at", { ascending: true });
+  const { data, error } = await supabase.from("celibataires_public").select("nom");
 
   if (error) throw new Error(error.message);
   return { celibataires: data.map((row) => row.nom), live: true };
