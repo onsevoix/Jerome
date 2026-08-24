@@ -512,6 +512,10 @@ a {
   margin-top: 12px;
 }
 
+.admin-tabs {
+  margin: 16px 0;
+}
+
 .admin-card {
   margin: 12px 0;
   padding: 18px;
@@ -519,6 +523,21 @@ a {
 
 .admin-card p {
   margin: 0 0 6px;
+}
+
+.admin-card__statut {
+  margin: 12px 0 0;
+}
+
+.admin-card__statut select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-rose);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-white);
+  color: var(--color-ink);
 }
 
 .page__lead-strong {
