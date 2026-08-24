@@ -2,6 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 Mo
+const VOCAL_URL_EXPIRY = 60 * 60 * 24 * 365; // 1 an
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -67,9 +68,13 @@ Deno.serve(async (req) => {
 
     if (uploadError) throw uploadError;
 
+    const { data: signedUrlData } = await supabase.storage
+      .from("vocaux")
+      .createSignedUrl(path, VOCAL_URL_EXPIRY);
+
     const { error: updateError } = await supabase
       .from("participations")
-      .update({ vocal_path: path })
+      .update({ vocal_path: path, vocal_url: signedUrlData?.signedUrl ?? null })
       .eq("id", record.id);
 
     if (updateError) throw updateError;
