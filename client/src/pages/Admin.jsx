@@ -210,16 +210,7 @@ export default function Admin() {
             </p>
             <p className="field__hint">{new Date(p.created_at).toLocaleString("fr-FR")}</p>
             {p.vocal_url ? (
-              <>
-                <audio controls src={p.vocal_url} style={{ width: "100%", marginTop: "8px" }} />
-                <p className="field__hint">
-                  Le lecteur ne fonctionne pas ?{" "}
-                  <a href={p.vocal_url} target="_blank" rel="noreferrer">
-                    Télécharger le vocal
-                  </a>{" "}
-                  (ouvrable avec l'app VLC sur iPhone si le format n'est pas lu nativement)
-                </p>
-              </>
+              <audio controls src={p.vocal_url} style={{ width: "100%", marginTop: "8px" }} />
             ) : (
               <p className="field__hint field__hint--error">Pas de vocal disponible</p>
             )}
