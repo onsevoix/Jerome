@@ -512,6 +512,15 @@ a {
   margin-top: 12px;
 }
 
+.admin-card {
+  margin: 12px 0;
+  padding: 18px;
+}
+
+.admin-card p {
+  margin: 0 0 6px;
+}
+
 .page__lead-strong {
   font-weight: 600;
 }
