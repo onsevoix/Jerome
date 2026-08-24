@@ -140,7 +140,7 @@ export default function Decla() {
 
           <div className="field">
             <label htmlFor="email" className="required">
-              Partage ton e-mail pour qu'il ou elle puisse t'écrire
+              Partage ton e-mail pour qu'il ou elle puisse te répondre
             </label>
             <input
               id="email"
