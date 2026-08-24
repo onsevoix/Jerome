@@ -1,0 +1,13 @@
+{
+  "name": "On se voix ? Dashboard",
+  "short_name": "OSV Dashboard",
+  "start_url": "/Jerome/#/admin",
+  "scope": "/Jerome/",
+  "display": "standalone",
+  "background_color": "#6738af",
+  "theme_color": "#6738af",
+  "icons": [
+    { "src": "/Jerome/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/Jerome/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
