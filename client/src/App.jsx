@@ -22,6 +22,7 @@ export default function App() {
           <Route path="/participer" element={<Participer />} />
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/declas" element={<Admin />} />
         </Routes>
         {!isHome && <Footer />}
       </main>

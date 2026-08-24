@@ -1,12 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-const tabs = [
+const publicTabs = [
   { to: "/ecouter", icon: "🎧", label: "Écouter" },
   { to: "/decla", icon: "💌", label: "Décla" },
   { to: "/participer", icon: "🎙️", label: "Participer" },
 ];
 
+const adminTabs = [
+  { to: "/admin", icon: "🎙️", label: "Participations" },
+  { to: "/admin/declas", icon: "💌", label: "Crushs vocaux" },
+];
+
 export default function BottomNav() {
+  const location = useLocation();
+  const tabs = location.pathname.startsWith("/admin") ? adminTabs : publicTabs;
+
   return (
     <nav className="bottom-nav">
       <NavLink
@@ -33,6 +41,7 @@ export default function BottomNav() {
         <NavLink
           key={tab.to}
           to={tab.to}
+          end={tab.to === "/admin"}
           className={({ isActive }) => `bottom-nav__item ${isActive ? "active" : ""}`}
         >
           <span className="bottom-nav__icon">{tab.icon}</span>

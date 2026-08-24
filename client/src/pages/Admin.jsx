@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient.js";
 
 const STATUTS = ["Pré-accepté", "Accepté", "Pré-refusé", "Refusé"];
 
 export default function Admin() {
+  const location = useLocation();
+  const tab = location.pathname.endsWith("/declas") ? "declas" : "participations";
+
   const [session, setSession] = useState(undefined);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [loggingIn, setLoggingIn] = useState(false);
 
-  const [tab, setTab] = useState("participations");
   const [declas, setDeclas] = useState([]);
   const [participations, setParticipations] = useState([]);
   const [loadError, setLoadError] = useState(null);
@@ -123,22 +126,11 @@ export default function Admin() {
 
       {loadError && <p className="form-status form-status--error">{loadError}</p>}
 
-      <div className="vocal-tabs admin-tabs">
-        <button
-          type="button"
-          className={`vocal-tabs__btn ${tab === "participations" ? "active" : ""}`}
-          onClick={() => setTab("participations")}
-        >
-          Participations ({participations.length})
-        </button>
-        <button
-          type="button"
-          className={`vocal-tabs__btn ${tab === "declas" ? "active" : ""}`}
-          onClick={() => setTab("declas")}
-        >
-          Déclas ({declas.length})
-        </button>
-      </div>
+      <h3 className="legal-heading">
+        {tab === "participations"
+          ? `Participations (${participations.length})`
+          : `Crushs vocaux (${declas.length})`}
+      </h3>
 
       {tab === "participations" &&
         participations.map((p) => (
