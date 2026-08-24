@@ -602,6 +602,29 @@ a {
   resize: vertical;
 }
 
+.field--checkbox {
+  margin-bottom: 24px;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
+  color: var(--color-ink) !important;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--color-corail);
+  cursor: pointer;
+}
+
 .field__hint {
   margin-top: 6px;
   font-size: 0.85rem;

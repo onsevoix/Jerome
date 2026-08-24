@@ -7,12 +7,14 @@ const initialForm = { prenom: "", ville: "", age: "", email: "", instagram: "" }
 
 export default function Step5Formulaire({ vocalFile, onBack }) {
   const [form, setForm] = useState(initialForm);
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
 
   const emailOk = EMAIL_REGEX.test(form.email);
-  const canSubmit = form.prenom && form.ville && form.age && emailOk && form.instagram && !submitting;
+  const canSubmit =
+    form.prenom && form.ville && form.age && emailOk && form.instagram && consent && !submitting;
 
   function updateField(field) {
     return (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -109,6 +111,21 @@ export default function Step5Formulaire({ vocalFile, onBack }) {
           required
         />
         <p className="field__hint">🔒 Reste confidentiel, ne sera jamais partagé.</p>
+      </div>
+
+      <div className="field field--checkbox">
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            required
+          />
+          <span>
+            J'accepte que mon vocal soit diffusé sur les plateformes d'écoute et les réseaux
+            sociaux d'<strong className="page__lead-strong">On se voix ?</strong>
+          </span>
+        </label>
       </div>
 
       <div className="funnel-actions">
