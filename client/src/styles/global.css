@@ -581,9 +581,35 @@ a {
   border-radius: var(--radius-md);
   border: 2px solid var(--color-rose);
   font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.95rem;
   background: var(--color-white);
   color: var(--color-ink);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.admin-card__statut select.statut-accepte {
+  background: #2f8f4e;
+  border-color: #2f8f4e;
+  color: var(--color-white);
+}
+
+.admin-card__statut select.statut-pre-accepte {
+  background: #e4f6e9;
+  border-color: #2f8f4e;
+  color: #2f8f4e;
+}
+
+.admin-card__statut select.statut-pre-refuse {
+  background: #fbe6e2;
+  border-color: #c9451f;
+  color: #c9451f;
+}
+
+.admin-card__statut select.statut-refuse {
+  background: #c9451f;
+  border-color: #c9451f;
+  color: var(--color-white);
 }
 
 .page__lead-strong {

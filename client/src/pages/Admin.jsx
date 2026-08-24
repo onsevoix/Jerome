@@ -3,15 +3,27 @@ import { useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient.js";
 
 const STATUTS = ["Pré-accepté", "Accepté", "Pré-refusé", "Refusé"];
-const STATUT_ORDER = ["", ...STATUTS];
+const STATUT_CLASS = {
+  Accepté: "statut-accepte",
+  "Pré-accepté": "statut-pre-accepte",
+  "Pré-refusé": "statut-pre-refuse",
+  Refusé: "statut-refuse",
+};
+const FAVORABLE_ORDER = ["Accepté", "Pré-accepté", "Pré-refusé", "Refusé", ""];
+const DEFAVORABLE_ORDER = ["Refusé", "Pré-refusé", "Pré-accepté", "Accepté", ""];
 
 function sortItems(items, sortBy) {
   const arr = [...items];
   if (sortBy === "date-asc") {
     arr.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-  } else if (sortBy === "statut") {
+  } else if (sortBy === "statut-favorable") {
     arr.sort(
-      (a, b) => STATUT_ORDER.indexOf(a.statut ?? "") - STATUT_ORDER.indexOf(b.statut ?? "")
+      (a, b) => FAVORABLE_ORDER.indexOf(a.statut ?? "") - FAVORABLE_ORDER.indexOf(b.statut ?? "")
+    );
+  } else if (sortBy === "statut-defavorable") {
+    arr.sort(
+      (a, b) =>
+        DEFAVORABLE_ORDER.indexOf(a.statut ?? "") - DEFAVORABLE_ORDER.indexOf(b.statut ?? "")
     );
   } else {
     arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -33,6 +45,7 @@ export default function Admin() {
   const [participations, setParticipations] = useState([]);
   const [loadError, setLoadError] = useState(null);
   const [sortBy, setSortBy] = useState("date-desc");
+  const [expandedDeclas, setExpandedDeclas] = useState({});
 
   useEffect(() => {
     setSortBy("date-desc");
@@ -138,7 +151,7 @@ export default function Admin() {
   }
 
   const sortedParticipations = sortItems(participations, sortBy);
-  const sortedDeclas = sortItems(declas, sortBy === "statut" ? "date-desc" : sortBy);
+  const sortedDeclas = sortItems(declas, sortBy.startsWith("statut") ? "date-desc" : sortBy);
 
   return (
     <section>
@@ -177,7 +190,12 @@ export default function Admin() {
         <select id="admin-sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="date-desc">Date (récent → ancien)</option>
           <option value="date-asc">Date (ancien → récent)</option>
-          {tab === "participations" && <option value="statut">Statut</option>}
+          {tab === "participations" && (
+            <>
+              <option value="statut-favorable">Statut (favorable → défavorable)</option>
+              <option value="statut-defavorable">Statut (défavorable → favorable)</option>
+            </>
+          )}
         </select>
       </div>
 
@@ -200,6 +218,7 @@ export default function Admin() {
               <label htmlFor={`statut-${p.id}`}>Statut</label>
               <select
                 id={`statut-${p.id}`}
+                className={STATUT_CLASS[p.statut] ?? ""}
                 value={p.statut ?? ""}
                 onChange={(e) => updateStatut(p.id, e.target.value || null)}
               >
@@ -223,7 +242,27 @@ export default function Admin() {
             <p className="field__hint">
               {d.email} · {new Date(d.created_at).toLocaleString("fr-FR")}
             </p>
-            <p>{d.message}</p>
+            <button
+              type="button"
+              className="legal-toggle"
+              aria-expanded={Boolean(expandedDeclas[d.id])}
+              onClick={() =>
+                setExpandedDeclas((prev) => ({ ...prev, [d.id]: !prev[d.id] }))
+              }
+            >
+              {expandedDeclas[d.id] ? "Masquer le message" : "Voir le message"}
+              <svg className="legal-toggle__chevron" viewBox="0 0 16 16" aria-hidden="true">
+                <path
+                  d="M4 6l4 4 4-4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            {expandedDeclas[d.id] && <p>{d.message}</p>}
           </div>
         ))}
     </section>
