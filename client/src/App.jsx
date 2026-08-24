@@ -6,7 +6,6 @@ import Ecouter from "./pages/Ecouter.jsx";
 import Decla from "./pages/Decla.jsx";
 import Participer from "./pages/Participer/index.jsx";
 import APropos from "./pages/APropos.jsx";
-import MentionsLegales from "./pages/MentionsLegales.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -21,7 +20,6 @@ export default function App() {
           <Route path="/decla" element={<Decla />} />
           <Route path="/participer" element={<Participer />} />
           <Route path="/a-propos" element={<APropos />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
         </Routes>
         {!isHome && <Footer />}
       </main>
