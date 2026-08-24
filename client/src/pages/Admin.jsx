@@ -3,6 +3,21 @@ import { useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient.js";
 
 const STATUTS = ["Pré-accepté", "Accepté", "Pré-refusé", "Refusé"];
+const STATUT_ORDER = ["", ...STATUTS];
+
+function sortItems(items, sortBy) {
+  const arr = [...items];
+  if (sortBy === "date-asc") {
+    arr.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+  } else if (sortBy === "statut") {
+    arr.sort(
+      (a, b) => STATUT_ORDER.indexOf(a.statut ?? "") - STATUT_ORDER.indexOf(b.statut ?? "")
+    );
+  } else {
+    arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  }
+  return arr;
+}
 
 export default function Admin() {
   const location = useLocation();
@@ -17,6 +32,11 @@ export default function Admin() {
   const [declas, setDeclas] = useState([]);
   const [participations, setParticipations] = useState([]);
   const [loadError, setLoadError] = useState(null);
+  const [sortBy, setSortBy] = useState("date-desc");
+
+  useEffect(() => {
+    setSortBy("date-desc");
+  }, [tab]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
@@ -117,12 +137,32 @@ export default function Admin() {
     );
   }
 
+  const sortedParticipations = sortItems(participations, sortBy);
+  const sortedDeclas = sortItems(declas, sortBy === "statut" ? "date-desc" : sortBy);
+
   return (
     <section>
-      <h2 className="page__title">Administration</h2>
-      <button type="button" className="btn btn--secondary btn--sm" onClick={handleLogout}>
-        Se déconnecter
-      </button>
+      <div className="admin-header">
+        <h2 className="page__title admin-header__title">Administration</h2>
+        <button
+          type="button"
+          className="admin-logout"
+          onClick={handleLogout}
+          aria-label="Se déconnecter"
+          title="Se déconnecter"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+            <path d="M12 3v8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+            <path
+              d="M6.5 6.5a8 8 0 1 0 11 0"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </svg>
+        </button>
+      </div>
 
       {loadError && <p className="form-status form-status--error">{loadError}</p>}
 
@@ -132,8 +172,17 @@ export default function Admin() {
           : `Crushs vocaux (${declas.length})`}
       </h3>
 
+      <div className="field admin-sort">
+        <label htmlFor="admin-sort">Trier par</label>
+        <select id="admin-sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="date-desc">Date (récent → ancien)</option>
+          <option value="date-asc">Date (ancien → récent)</option>
+          {tab === "participations" && <option value="statut">Statut</option>}
+        </select>
+      </div>
+
       {tab === "participations" &&
-        participations.map((p) => (
+        sortedParticipations.map((p) => (
           <div key={p.id} className="form-card admin-card">
             <p>
               <strong>{p.prenom}</strong> · {p.ville} · {p.age} ans
@@ -166,7 +215,7 @@ export default function Admin() {
         ))}
 
       {tab === "declas" &&
-        declas.map((d) => (
+        sortedDeclas.map((d) => (
           <div key={d.id} className="form-card admin-card">
             <p>
               <strong>{d.prenom}</strong> → {d.celibataire}

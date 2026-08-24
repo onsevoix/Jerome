@@ -512,6 +512,56 @@ a {
   margin-top: 12px;
 }
 
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-header__title {
+  margin: 0;
+}
+
+.admin-logout {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-ink);
+  background: var(--color-violet);
+  color: var(--color-white);
+  cursor: pointer;
+  box-shadow: var(--shadow-flat);
+  transition: transform 0.15s var(--ease-soft);
+}
+
+.admin-logout:hover {
+  transform: translateY(-2px);
+}
+
+.admin-logout:active {
+  transform: translateY(1px);
+}
+
+.admin-sort {
+  margin: 16px 0;
+}
+
+.admin-sort select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-rose);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
 .admin-card {
   margin: 12px 0;
   padding: 18px;

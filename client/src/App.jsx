@@ -11,6 +11,7 @@ import Admin from "./pages/Admin.jsx";
 export default function App() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isAdmin = location.pathname.startsWith("/admin");
 
   return (
     <div className="app">
@@ -24,7 +25,7 @@ export default function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/declas" element={<Admin />} />
         </Routes>
-        {!isHome && <Footer />}
+        {!isHome && !isAdmin && <Footer />}
       </main>
       {!isHome && <BottomNav />}
     </div>
