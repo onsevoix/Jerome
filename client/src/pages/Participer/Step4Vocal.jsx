@@ -1,5 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
+// Safari (iPhone/Mac) ne sait pas lire l'audio webm, qui est le choix par
+// defaut de Chrome/Firefox pour MediaRecorder. On preferre mp4 quand le
+// navigateur sait l'enregistrer (Safari le supporte), pour que le vocal
+// reste lisible partout, y compris pour l'ecoute cote admin sur iPhone.
+function pickRecorderMimeType() {
+  if (typeof MediaRecorder === "undefined" || !MediaRecorder.isTypeSupported) return undefined;
+  const candidates = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"];
+  return candidates.find((type) => MediaRecorder.isTypeSupported(type));
+}
+
 export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) {
   const [vocalMode, setVocalMode] = useState("upload"); // "upload" | "record"
   const [isRecording, setIsRecording] = useState(false);
@@ -39,7 +49,8 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
       streamRef.current = stream;
       chunksRef.current = [];
 
-      const recorder = new MediaRecorder(stream);
+      const mimeType = pickRecorderMimeType();
+      const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
       mediaRecorderRef.current = recorder;
 
       recorder.ondataavailable = (e) => {
@@ -47,8 +58,10 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
       };
 
       recorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" });
-        const file = new File([blob], "vocal-enregistre.webm", { type: blob.type });
+        const mime = recorder.mimeType || "audio/webm";
+        const ext = mime.includes("mp4") ? "m4a" : "webm";
+        const blob = new Blob(chunksRef.current, { type: mime });
+        const file = new File([blob], `vocal-enregistre.${ext}`, { type: blob.type });
         setVocalFile(file);
         setPreviewUrl(URL.createObjectURL(blob));
         streamRef.current?.getTracks().forEach((track) => track.stop());
