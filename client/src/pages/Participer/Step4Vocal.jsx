@@ -99,6 +99,13 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
     <div className="form-card">
       <h3>Déposez votre vocal</h3>
 
+      <p className="page__lead vocal-tips__intro">Derniers conseils pour votre vocal :</p>
+      <ul className="vocal-tips">
+        <li>Soyez le plus naturel·le possible 🍀</li>
+        <li>Ne lisez pas de texte 🤓</li>
+        <li>Parlez près de votre micro 🎙️</li>
+      </ul>
+
       <div className="field">
         <div className="vocal-tabs">
           <button

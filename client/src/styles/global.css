@@ -955,6 +955,18 @@ a {
   margin-top: 24px;
 }
 
+.vocal-tips__intro {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.vocal-tips {
+  margin: 0 0 20px;
+  padding-left: 20px;
+  color: #5a4a58;
+  line-height: 1.6;
+}
+
 .vocal-tabs {
   display: flex;
   gap: 8px;
