@@ -1,7 +1,9 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import nodemailer from "npm:nodemailer@6";
+import { checkRateLimit } from "../_shared/rateLimit.ts";
 
 const MIN_MESSAGE_LENGTH = 500;
+const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const supabase = createClient(
@@ -66,6 +68,9 @@ Deno.serve(async (req) => {
   }
 
   try {
+    const rateLimitError = await checkRateLimit(req, "decla", { perHour: 5, perDay: 15 });
+    if (rateLimitError) return json({ error: rateLimitError }, 429);
+
     const { prenom, celibataire, message, email } = await req.json();
 
     if (!prenom || !celibataire || !message || !email) {
@@ -75,6 +80,13 @@ Deno.serve(async (req) => {
     if (message.length < MIN_MESSAGE_LENGTH) {
       return json(
         { error: `Le message doit contenir au moins ${MIN_MESSAGE_LENGTH} caractères.` },
+        400
+      );
+    }
+
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return json(
+        { error: `Le message ne doit pas dépasser ${MAX_MESSAGE_LENGTH} caractères.` },
         400
       );
     }

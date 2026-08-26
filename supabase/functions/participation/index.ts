@@ -1,4 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { checkRateLimit } from "../_shared/rateLimit.ts";
+import { isLikelyAudio } from "../_shared/sniffAudio.ts";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 Mo
@@ -27,6 +29,9 @@ Deno.serve(async (req) => {
   }
 
   try {
+    const rateLimitError = await checkRateLimit(req, "participation", { perHour: 3, perDay: 8 });
+    if (rateLimitError) return json({ error: rateLimitError }, 429);
+
     const form = await req.formData();
     const prenom = form.get("prenom")?.toString() ?? "";
     const ville = form.get("ville")?.toString() ?? "";
@@ -45,6 +50,17 @@ Deno.serve(async (req) => {
 
     if (vocal.size > MAX_FILE_SIZE) {
       return json({ error: "Le fichier audio dépasse la taille maximale autorisée (50 Mo)." }, 400);
+    }
+
+    // Verifie le contenu reel du fichier (pas seulement son nom ou son
+    // Content-Type declare, tous deux falsifiables) pour empecher l'envoi
+    // d'un fichier deguise en audio (executable, script...).
+    const headerBytes = new Uint8Array(await vocal.slice(0, 16).arrayBuffer());
+    if (!isLikelyAudio(headerBytes)) {
+      return json(
+        { error: "Ce fichier ne semble pas être un fichier audio valide." },
+        400
+      );
     }
 
     if (!EMAIL_REGEX.test(email)) {
