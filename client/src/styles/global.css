@@ -36,7 +36,13 @@ a {
   position: fixed;
   left: 50%;
   bottom: 18px;
-  transform: translateX(-50%);
+  /* translate3d (plutot que translateX) force Safari iOS a garder cette
+     barre sur sa propre couche de rendu accéléré : sans ça, la barre peut
+     se "détacher" du bas de l'écran pendant le défilement, a cause de la
+     barre d'adresse de Safari qui se retracte/agrandit dynamiquement. */
+  transform: translate3d(-50%, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   z-index: 30;
   display: flex;
   align-items: center;
