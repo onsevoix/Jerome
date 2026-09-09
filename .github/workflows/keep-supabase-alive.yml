@@ -1,0 +1,21 @@
+name: Keep Supabase project active
+
+# Le plan gratuit Supabase met en pause un projet apres 7 jours sans
+# activite. Cette tache fait un simple appel a l'API toutes les 2 jours
+# pour que le projet ne soit jamais considere comme inactif.
+
+on:
+  schedule:
+    - cron: "0 6 */2 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          curl -s -o /dev/null -w "HTTP %{http_code}\n" \
+            "${{ secrets.VITE_SUPABASE_URL }}/rest/v1/celibataires_public?select=nom&limit=1" \
+            -H "apikey: ${{ secrets.VITE_SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.VITE_SUPABASE_ANON_KEY }}"
