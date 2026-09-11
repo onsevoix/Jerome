@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { encodeToMp3 } from "../../lib/mp3Encode.js";
+import { socialLinks } from "../../data/links.js";
 
 export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) {
   const [vocalMode, setVocalMode] = useState("upload"); // "upload" | "record"
@@ -104,6 +105,7 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
         <li>Soyez le plus naturel·le possible 🍀</li>
         <li>Ne lisez pas de texte 🤓</li>
         <li>Parlez près de votre micro 🎙️</li>
+        <li>Ne dépassez pas 5 minutes ⏳</li>
       </ul>
 
       <div className="field">
@@ -166,6 +168,13 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
           </div>
         )}
       </div>
+
+      <p className="page__lead page__lead--centered">
+        Une question ou un problème ? Envoyez-nous un message sur{" "}
+        <a href={socialLinks.instagram} target="_blank" rel="noreferrer">
+          Instagram
+        </a>
+      </p>
 
       <div className="funnel-actions">
         <button type="button" className="btn btn--secondary" onClick={onBack}>
