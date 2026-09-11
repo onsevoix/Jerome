@@ -16,7 +16,7 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
       </p>
 
       <p>
-        <strong className="rule-step-label">Pour le milieu :</strong> Présentez-vous en listant au moins 30 choses que vous
+        <strong className="rule-step-label">Pour le milieu :</strong> Présentez-vous en listant au moins 20 choses que vous
         aimez et qui vous définissent vraiment. Pas les choses que tout le monde aime, mais les
         petites choses du quotidien qui vous caractérisent et vous définissent.
       </p>
