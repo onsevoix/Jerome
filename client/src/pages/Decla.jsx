@@ -3,7 +3,7 @@ import { celibataires as fallbackCelibataires } from "../data/celibataires.js";
 import { sendDecla, fetchCelibataires } from "../lib/api.js";
 import WritingLoop from "../components/icons/WritingLoop.jsx";
 
-const MIN_MESSAGE_LENGTH = 500;
+const MIN_MESSAGE_LENGTH = 350;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const initialForm = {
@@ -133,8 +133,10 @@ export default function Decla() {
               onChange={updateField("message")}
               required
             />
-            <p className={`field__hint ${messageOk ? "field__hint--ok" : ""}`}>
-              {messageLength} / {MIN_MESSAGE_LENGTH} caractères minimum
+            <p className={`field__hint ${messageOk ? "field__hint--ok" : "field__hint--error"}`}>
+              {messageOk
+                ? "✅ C'est bon, tu peux envoyer ta décla !"
+                : `Encore ${MIN_MESSAGE_LENGTH - messageLength} caractères à écrire pour pouvoir envoyer`}
             </p>
           </div>
 

@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import nodemailer from "npm:nodemailer@6";
 import { checkRateLimit } from "../_shared/rateLimit.ts";
 
-const MIN_MESSAGE_LENGTH = 500;
+const MIN_MESSAGE_LENGTH = 350;
 const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
