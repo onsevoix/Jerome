@@ -21,7 +21,37 @@ const COLORS = Object.keys(CARD_COLORS);
 
 // Numéro stable par question (position dans data/questions.js), conservé
 // même si l'ordre d'affichage est mélangé.
-const NUMBERED_QUESTIONS = questions.map((text, i) => ({ number: i + 1, text }));
+let NUMBERED_QUESTIONS;
+
+const NBSP = " ";
+// Mots d'une à trois lettres qui ne doivent jamais se retrouver seuls en fin
+// de ligne (typographie française classique).
+const SHORT_WORDS = new Set([
+  "à", "as", "ça", "ce", "ces", "ci", "de", "des", "du", "dès", "en", "es",
+  "est", "et", "il", "je", "la", "le", "les", "ma", "me", "mes", "mi", "ne",
+  "ni", "nos", "nu", "on", "ont", "or", "ou", "où", "que", "qui", "ses",
+  "si", "su", "sur", "ta", "te", "tes", "tu", "un", "une", "vos", "vu", "y",
+]);
+
+function frenchTypography(text) {
+  const words = text.split(" ");
+  let out = words[0] ?? "";
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+    const prevBare = words[i - 1].toLowerCase().replace(/[.,;:!?'"«»()…]/g, "");
+    const glue =
+      SHORT_WORDS.has(prevBare) ||
+      /\d/.test(words[i - 1]) ||
+      /\d/.test(word) ||
+      /^[?!:;»]/.test(word) ||
+      /«$/.test(words[i - 1]);
+    out += (glue ? NBSP : " ") + word;
+  }
+  return out;
+}
+
+NUMBERED_QUESTIONS = questions.map((text, i) => ({ number: i + 1, text: frenchTypography(text) }));
+const FRENCH_PROMO_TEXT = frenchTypography(PROMO_TEXT);
 
 function shuffle(array) {
   const arr = [...array];
@@ -56,7 +86,7 @@ function buildDeck() {
   shuffle(NUMBERED_QUESTIONS).forEach(({ number, text }, i) => {
     deck.push({ type: "question", number, text, color: nextColor() });
     if ((i + 1) % PROMO_INTERVAL === 0) {
-      deck.push({ type: "promo", text: PROMO_TEXT, color: nextColor() });
+      deck.push({ type: "promo", text: FRENCH_PROMO_TEXT, color: nextColor() });
     }
   });
   return deck;
