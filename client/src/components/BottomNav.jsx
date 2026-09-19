@@ -6,6 +6,7 @@ const publicTabs = [
   { to: "/ecouter", icon: "🎧", label: "Écouter" },
   { to: "/decla", icon: "💌", label: "Décla" },
   { to: "/participer", icon: "🎙️", label: "Participer" },
+  { to: "/questions", icon: "❓", label: "Questions" },
 ];
 
 const adminTabs = [

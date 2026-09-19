@@ -1,0 +1,23 @@
+// Contenu provisoire, à remplacer par les vraies questions du podcast.
+export const questions = [
+  "Quel est ton red flag préféré chez quelqu'un ?",
+  "C'était quoi ta pire première date ?",
+  "Tu préfères un message vocal ou un texto le matin ?",
+  "Quelle est la chose la plus romantique qu'on ait faite pour toi ?",
+  "Un date parfait, ça ressemble à quoi pour toi ?",
+  "Quel est ton green flag non négociable ?",
+  "Tu crois au coup de foudre ?",
+  "Quelle appli de rencontre tu détestes le plus ?",
+  "C'est quoi ta pire excuse pour annuler un date ?",
+  "Tu préfères sortir un vendredi soir ou un dimanche après-midi ?",
+  "Quelle question tu poserais toujours à un date ?",
+  "Ton pire ghosting, tu l'as vécu ou tu l'as fait ?",
+  "Une qualité que tu recherches avant tout chez quelqu'un ?",
+  "Tu textotes en premier ou tu attends toujours ?",
+  "Quel est ton plus grand red flag à toi ?",
+  "Un date idéal : resto, balade ou activité ?",
+  "Tu crois qu'on peut rester ami avec un ex ?",
+  "Quelle chanson te met direct dans l'ambiance love ?",
+  "Ton critère le plus bizarre pour matcher avec quelqu'un ?",
+  "Tu préfères un compliment sur ton physique ou sur ta personnalité ?",
+];

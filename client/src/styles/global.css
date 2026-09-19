@@ -404,7 +404,8 @@ a {
 
 .hero__menu-item--rose,
 .hero__menu-item--lavande,
-.hero__menu-item--violet {
+.hero__menu-item--violet,
+.hero__menu-item--corail {
   border-color: transparent;
 }
 
@@ -419,6 +420,11 @@ a {
 
 .hero__menu-item--violet {
   background: var(--color-violet-dark);
+  color: var(--color-white);
+}
+
+.hero__menu-item--corail {
+  background: var(--color-corail);
   color: var(--color-white);
 }
 
@@ -1208,6 +1214,88 @@ a {
 
 .site-footer span {
   opacity: 0.6;
+}
+
+/* ---------- Questions : pile de cartes ---------- */
+
+.questions-stack {
+  position: relative;
+  height: 340px;
+  margin: 8px 0 24px;
+  touch-action: pan-y;
+}
+
+.question-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-flat);
+  cursor: grab;
+  user-select: none;
+}
+
+.question-card:active {
+  cursor: grabbing;
+}
+
+.question-card p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.question-card--lavande {
+  background: var(--color-lavande);
+  color: var(--color-violet-dark);
+}
+
+.question-card--violet {
+  background: var(--color-violet-dark);
+  color: var(--color-lavande);
+}
+
+.question-card--rose {
+  background: var(--color-rose);
+  color: var(--color-corail);
+}
+
+.question-card--corail {
+  background: var(--color-corail);
+  color: var(--color-rose);
+}
+
+.questions-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.questions-nav__btn {
+  padding: 12px 18px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-ink);
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease-soft);
+}
+
+.questions-nav__btn:hover {
+  transform: translateY(-2px);
+}
+
+.questions-nav__btn:active {
+  transform: translateY(1px);
 }
 
 /* ---------- Présentation "mockup téléphone" sur grand écran ---------- */

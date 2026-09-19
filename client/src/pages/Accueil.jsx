@@ -6,6 +6,7 @@ const menu = [
   { to: "/ecouter", icon: "🎧", label: "Écouter le podcast", variant: "rose" },
   { to: "/decla", icon: "💌", label: "Faire une décla", variant: "lavande" },
   { to: "/participer", icon: "🎙️", label: "Participer", variant: "violet" },
+  { to: "/questions", icon: "❓", label: "Questions", variant: "corail" },
 ];
 
 export default function Accueil() {
