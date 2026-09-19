@@ -12,6 +12,18 @@ const STATUT_CLASS = {
 const FAVORABLE_ORDER = ["Accepté", "Pré-accepté", "Pré-refusé", "Refusé", ""];
 const DEFAVORABLE_ORDER = ["Refusé", "Pré-refusé", "Pré-accepté", "Accepté", ""];
 
+const CLASSEMENT_FILTERS = [
+  { value: "a-traiter", label: "À traiter" },
+  { value: "confirmes", label: "Confirmés" },
+  { value: "archives", label: "Archivés" },
+];
+
+function matchesClassementFilter(p, filter) {
+  if (filter === "confirmes") return p.classement === "Confirmé";
+  if (filter === "archives") return p.classement === "Archivé";
+  return !p.classement;
+}
+
 function sortItems(items, sortBy) {
   const arr = [...items];
   if (sortBy === "date-asc") {
@@ -46,6 +58,7 @@ export default function Admin() {
   const [loadError, setLoadError] = useState(null);
   const [sortBy, setSortBy] = useState("date-desc");
   const [expandedDeclas, setExpandedDeclas] = useState({});
+  const [classementFilter, setClassementFilter] = useState("a-traiter");
 
   useEffect(() => {
     setSortBy("date-desc");
@@ -108,6 +121,13 @@ export default function Admin() {
     if (error) setLoadError(error.message);
   }
 
+  async function updateClassement(id, currentClassement, targetClassement) {
+    const classement = currentClassement === targetClassement ? null : targetClassement;
+    setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, classement } : p)));
+    const { error } = await supabase.from("participations").update({ classement }).eq("id", id);
+    if (error) setLoadError(error.message);
+  }
+
   if (session === undefined) {
     return null;
   }
@@ -151,6 +171,9 @@ export default function Admin() {
   }
 
   const sortedParticipations = sortItems(participations, sortBy);
+  const filteredParticipations = sortedParticipations.filter((p) =>
+    matchesClassementFilter(p, classementFilter)
+  );
   const sortedDeclas = sortItems(declas, sortBy.startsWith("statut") ? "date-desc" : sortBy);
 
   return (
@@ -181,9 +204,27 @@ export default function Admin() {
 
       <h3 className="legal-heading">
         {tab === "participations"
-          ? `Participations (${participations.length})`
+          ? `Participations (${filteredParticipations.length})`
           : `Crushs vocaux (${declas.length})`}
       </h3>
+
+      {tab === "participations" && (
+        <div className="admin-filter-tabs">
+          {CLASSEMENT_FILTERS.map((f) => (
+            <button
+              key={f.value}
+              type="button"
+              className={`admin-filter-tabs__btn ${classementFilter === f.value ? "active" : ""}`}
+              onClick={() => setClassementFilter(f.value)}
+            >
+              {f.label}
+              <span className="admin-filter-tabs__count">
+                {participations.filter((p) => matchesClassementFilter(p, f.value)).length}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="field admin-sort">
         <label htmlFor="admin-sort">Trier par</label>
@@ -200,7 +241,7 @@ export default function Admin() {
       </div>
 
       {tab === "participations" &&
-        sortedParticipations.map((p) => (
+        filteredParticipations.map((p) => (
           <div key={p.id} className="form-card admin-card">
             <p>
               <strong>{p.prenom}</strong> · {p.ville} · {p.age} ans
@@ -229,6 +270,26 @@ export default function Admin() {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="admin-card__classement">
+              <button
+                type="button"
+                className={`admin-classement-btn admin-classement-btn--confirme ${
+                  p.classement === "Confirmé" ? "active" : ""
+                }`}
+                onClick={() => updateClassement(p.id, p.classement, "Confirmé")}
+              >
+                ✅ Confirmer
+              </button>
+              <button
+                type="button"
+                className={`admin-classement-btn admin-classement-btn--archive ${
+                  p.classement === "Archivé" ? "active" : ""
+                }`}
+                onClick={() => updateClassement(p.id, p.classement, "Archivé")}
+              >
+                🗄️ Archiver
+              </button>
             </div>
           </div>
         ))}

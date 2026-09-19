@@ -603,6 +603,73 @@ a {
   transform: translateY(1px);
 }
 
+.admin-filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 16px;
+}
+
+.admin-filter-tabs__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-rose);
+  background: var(--color-white);
+  color: var(--color-violet);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-soft);
+}
+
+.admin-filter-tabs__btn.active {
+  background: var(--color-corail);
+  border-color: var(--color-corail);
+  color: var(--color-white);
+}
+
+.admin-filter-tabs__count {
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.admin-card__classement {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.admin-classement-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-ink);
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.admin-classement-btn--confirme.active {
+  background: #2f8f4e;
+  border-color: #2f8f4e;
+  color: var(--color-white);
+}
+
+.admin-classement-btn--archive.active {
+  background: #5a4a58;
+  border-color: #5a4a58;
+  color: var(--color-white);
+}
+
 .admin-sort {
   margin: 16px 0;
 }
