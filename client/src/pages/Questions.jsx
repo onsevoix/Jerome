@@ -3,6 +3,11 @@ import { questions } from "../data/questions.js";
 
 const SWIPE_THRESHOLD = 90;
 const SHARE_HINT_DURATION = 4000;
+const PEEK_STYLES = [
+  null,
+  { x: 14, y: 20, rotate: 5, scale: 0.95 },
+  { x: -20, y: 38, rotate: -7, scale: 0.9 },
+];
 
 const CARD_COLORS = {
   lavande: { bg: "#d0d5fd", text: "#4f2b87" },
@@ -197,7 +202,7 @@ export default function Questions() {
                   opacity: drag.exiting ? 0 : 1,
                 }
               : {
-                  transform: `translateY(${i * 10}px) scale(${1 - i * 0.04})`,
+                  transform: `translate(${PEEK_STYLES[i].x}px, ${PEEK_STYLES[i].y}px) rotate(${PEEK_STYLES[i].rotate}deg) scale(${PEEK_STYLES[i].scale})`,
                 };
             return (
               <div
@@ -262,11 +267,8 @@ export default function Questions() {
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          <polyline points="16 3 21 3 21 8" />
-          <line x1="4" y1="20" x2="21" y2="3" />
-          <polyline points="21 16 21 21 16 21" />
-          <line x1="15" y1="15" x2="21" y2="21" />
-          <line x1="4" y1="4" x2="9" y2="9" />
+          <path d="M21 12a9 9 0 1 1-3.5-7.14" />
+          <polyline points="21 3 21 9 15 9" />
         </svg>
       </button>
 
