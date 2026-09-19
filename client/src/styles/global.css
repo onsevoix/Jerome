@@ -152,7 +152,8 @@ a {
   .page,
   .bottom-nav__item,
   .btn,
-  .platform-card {
+  .platform-card,
+  .question-card__share-hint {
     animation: none !important;
     transition: none !important;
   }
@@ -1269,6 +1270,50 @@ a {
 .question-card--corail {
   background: var(--color-corail);
   color: var(--color-rose);
+}
+
+.question-card--promo p {
+  font-size: 1.1rem;
+}
+
+.question-card__kicker {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+}
+
+.question-card__share-hint {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  color: inherit;
+  animation: questions-pulse 1.6s ease-out infinite;
+}
+
+@keyframes questions-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
 }
 
 .question-card__share {

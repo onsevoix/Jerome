@@ -3,6 +3,8 @@ import { questions } from "../data/questions.js";
 
 const SWIPE_THRESHOLD = 90;
 const SHARE_HINT_DURATION = 4000;
+const PROMO_INTERVAL = 7;
+const PROMO_TEXT = "Vous aimez une question ? Partagez-la à votre entourage pour voir ce qu'il en pense";
 const PEEK_STYLES = [
   null,
   { x: 14, y: 20, rotate: 5, scale: 0.95 },
@@ -35,15 +37,25 @@ function buildDeck() {
   // Les 3 cartes visibles à l'écran en même temps (celle du dessus + les 2
   // qui dépassent derrière) doivent toujours avoir 3 couleurs différentes :
   // chaque carte évite donc la couleur des 2 précédentes, pas juste la
-  // dernière.
+  // dernière. Une carte "partage" s'intercale tous les PROMO_INTERVAL
+  // questions pour inciter à utiliser le bouton de partage.
   let prev1 = null;
   let prev2 = null;
-  return shuffle(questions).map((text) => {
+  const nextColor = () => {
     const color = pickColor([prev1, prev2].filter(Boolean));
     prev2 = prev1;
     prev1 = color;
-    return { text, color };
+    return color;
+  };
+
+  const deck = [];
+  shuffle(questions).forEach((text, i) => {
+    deck.push({ type: "question", text, color: nextColor() });
+    if ((i + 1) % PROMO_INTERVAL === 0) {
+      deck.push({ type: "promo", text: PROMO_TEXT, color: nextColor() });
+    }
   });
+  return deck;
 }
 
 function wrapText(ctx, text, maxWidth) {
@@ -94,6 +106,27 @@ async function renderCardImage(card) {
   ctx.fillText("@onsevoix", width / 2, height - 110);
 
   return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+}
+
+function ShareIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+      <path
+        d="M12 16V4M12 4L7 9M12 4l5 5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 export default function Questions() {
@@ -157,7 +190,7 @@ export default function Questions() {
 
   async function shareCurrentQuestion() {
     const card = deck[index];
-    if (!card || sharing) return;
+    if (!card || sharing || card.type === "promo") return;
     setSharing(true);
     try {
       const blob = await renderCardImage(card);
@@ -213,14 +246,21 @@ export default function Questions() {
             return (
               <div
                 key={`${index + i}-${card.text}`}
-                className={`question-card question-card--${card.color}`}
+                className={`question-card question-card--${card.color} ${
+                  card.type === "promo" ? "question-card--promo" : ""
+                }`}
                 style={style}
                 onPointerDown={isTop ? handlePointerDown : undefined}
                 onPointerMove={isTop ? handlePointerMove : undefined}
                 onPointerUp={isTop ? handlePointerUp : undefined}
                 onPointerCancel={isTop ? handlePointerUp : undefined}
               >
-                {isTop && (
+                {isTop && card.type === "promo" && (
+                  <span className="question-card__share-hint" aria-hidden="true">
+                    <ShareIcon />
+                  </span>
+                )}
+                {isTop && card.type !== "promo" && (
                   <button
                     type="button"
                     className="question-card__share"
@@ -232,23 +272,11 @@ export default function Questions() {
                       shareCurrentQuestion();
                     }}
                   >
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
-                      <path
-                        d="M12 16V4M12 4L7 9M12 4l5 5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <ShareIcon />
                   </button>
+                )}
+                {card.type === "promo" && (
+                  <span className="question-card__kicker">💡 Astuce</span>
                 )}
                 <p>{card.text}</p>
               </div>
