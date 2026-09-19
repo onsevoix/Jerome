@@ -5,6 +5,7 @@ import Accueil from "./pages/Accueil.jsx";
 import Ecouter from "./pages/Ecouter.jsx";
 import Decla from "./pages/Decla.jsx";
 import Participer from "./pages/Participer/index.jsx";
+import FAQ from "./pages/FAQ.jsx";
 import APropos from "./pages/APropos.jsx";
 import Admin from "./pages/Admin.jsx";
 
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/ecouter" element={<Ecouter />} />
           <Route path="/decla" element={<Decla />} />
           <Route path="/participer" element={<Participer />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/declas" element={<Admin />} />

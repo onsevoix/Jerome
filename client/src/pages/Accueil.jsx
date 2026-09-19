@@ -40,6 +40,8 @@ export default function Accueil() {
           TikTok
         </a>
         <span aria-hidden="true">·</span>
+        <Link to="/faq">FAQ</Link>
+        <span aria-hidden="true">·</span>
         <Link to="/a-propos">À propos de nous</Link>
       </div>
     </section>
