@@ -1221,7 +1221,7 @@ a {
 .questions-stack {
   position: relative;
   height: 340px;
-  margin: 8px 0 24px;
+  margin: 8px 0 0;
   touch-action: pan-y;
 }
 
@@ -1303,14 +1303,16 @@ a {
 }
 
 .questions-new-btn {
+  position: relative;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 64px;
   height: 64px;
-  margin: 6px auto 0;
+  margin: -32px auto 20px;
   border-radius: var(--radius-full);
-  border: none;
+  border: 3px solid var(--color-cream);
   background: var(--color-corail);
   color: var(--color-white);
   box-shadow: var(--shadow-flat);
