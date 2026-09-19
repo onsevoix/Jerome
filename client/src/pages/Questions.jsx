@@ -212,25 +212,57 @@ export default function Questions() {
                 onPointerUp={isTop ? handlePointerUp : undefined}
                 onPointerCancel={isTop ? handlePointerUp : undefined}
               >
+                {isTop && (
+                  <button
+                    type="button"
+                    className="question-card__share"
+                    aria-label="Partager cette question"
+                    disabled={sharing}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      shareCurrentQuestion();
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 16V4M12 4L7 9M12 4l5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                )}
                 <p>{card.text}</p>
               </div>
             );
           })}
       </div>
 
-      <div className="questions-nav">
-        <button type="button" className="questions-nav__btn" onClick={nextQuestion}>
-          🔀 Nouvelle question
-        </button>
-        <button
-          type="button"
-          className="questions-nav__btn questions-nav__btn--secondary"
-          onClick={shareCurrentQuestion}
-          disabled={sharing}
-        >
-          {sharing ? "Préparation…" : "📤 Partager"}
-        </button>
-      </div>
+      <button
+        type="button"
+        className="questions-new-btn"
+        aria-label="Nouvelle question"
+        onClick={nextQuestion}
+      >
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true">
+          <path
+            d="M12 5v14M5 12h14"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
 
       {shareHint && <p className="field__hint questions-share-hint">{shareHint}</p>}
     </section>

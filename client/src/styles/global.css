@@ -1271,49 +1271,64 @@ a {
   color: var(--color-rose);
 }
 
-.questions-nav {
+.question-card__share {
+  position: absolute;
+  top: 18px;
+  right: 18px;
   display: flex;
-  gap: 10px;
+  align-items: center;
   justify-content: center;
-}
-
-.questions-nav__btn {
-  padding: 12px 18px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
-  border: 2px solid var(--color-ink);
-  background: var(--color-corail);
-  border-color: var(--color-corail);
-  color: var(--color-white);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.85rem;
+  border: none;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  color: inherit;
   cursor: pointer;
   transition: transform 0.15s var(--ease-soft);
 }
 
-.questions-nav__btn:hover {
-  transform: translateY(-2px);
+.question-card__share:hover {
+  transform: scale(1.06);
 }
 
-.questions-nav__btn:active {
-  transform: translateY(1px);
+.question-card__share:active {
+  transform: scale(0.96);
 }
 
-.questions-nav__btn:disabled {
-  opacity: 0.6;
+.question-card__share:disabled {
+  opacity: 0.5;
   cursor: default;
   transform: none;
 }
 
-.questions-nav__btn--secondary {
-  background: var(--color-white);
-  border-color: var(--color-ink);
-  color: var(--color-ink);
+.questions-new-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 6px auto 0;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--color-corail);
+  color: var(--color-white);
+  box-shadow: var(--shadow-flat);
+  cursor: pointer;
+  transition: transform 0.15s var(--ease-soft);
+}
+
+.questions-new-btn:hover {
+  transform: translateY(-2px);
+}
+
+.questions-new-btn:active {
+  transform: translateY(1px);
 }
 
 .questions-share-hint {
   text-align: center;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 /* ---------- Présentation "mockup téléphone" sur grand écran ---------- */
