@@ -26,16 +26,22 @@ function shuffle(array) {
   return arr;
 }
 
-function pickColor(previousColor) {
-  const options = COLORS.filter((c) => c !== previousColor);
+function pickColor(excluded) {
+  const options = COLORS.filter((c) => !excluded.includes(c));
   return options[Math.floor(Math.random() * options.length)];
 }
 
 function buildDeck() {
-  let previousColor = null;
+  // Les 3 cartes visibles à l'écran en même temps (celle du dessus + les 2
+  // qui dépassent derrière) doivent toujours avoir 3 couleurs différentes :
+  // chaque carte évite donc la couleur des 2 précédentes, pas juste la
+  // dernière.
+  let prev1 = null;
+  let prev2 = null;
   return shuffle(questions).map((text) => {
-    const color = pickColor(previousColor);
-    previousColor = color;
+    const color = pickColor([prev1, prev2].filter(Boolean));
+    prev2 = prev1;
+    prev1 = color;
     return { text, color };
   });
 }
@@ -267,8 +273,9 @@ export default function Questions() {
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          <path d="M21 12a9 9 0 1 1-3.5-7.14" />
-          <polyline points="21 3 21 9 15 9" />
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
         </svg>
       </button>
 
