@@ -6,7 +6,11 @@ export default function Step3ReglesVocal({ onNext, onBack }) {
   return (
     <div className="form-card">
       <h3>Quelles sont les règles pour le vocal ?</h3>
-      <p>C'est très simple, votre vocal a un début, un milieu, une fin 😊</p>
+      <p>
+        Votre vocal doit ressembler un peu à un message vocal que vous laisseriez sur un
+        répondeur, et il doit contenir 3 choses indispensables : un début, un milieu, une fin,
+        assez simple 😊
+      </p>
 
       <p>
         <strong className="rule-step-label">Pour le début :</strong> votre vocal doit commencer par « Hello Mahé, c'est{" "}
