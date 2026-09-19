@@ -270,8 +270,8 @@ export default function Questions() {
                       strokeLinejoin="round"
                       aria-hidden="true"
                     >
-                      <path d="M6 50C 16 46, 34 34, 46 14" />
-                      <path d="M35 10 L48 13 L43 24" />
+                      <path d="M6 50C16 46,32 32,44 16" />
+                      <path d="M42 27L44 16L34 21" />
                     </svg>
                   </>
                 )}
