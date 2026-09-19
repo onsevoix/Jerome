@@ -1281,8 +1281,9 @@ a {
   padding: 12px 18px;
   border-radius: var(--radius-full);
   border: 2px solid var(--color-ink);
-  background: var(--color-white);
-  color: var(--color-ink);
+  background: var(--color-corail);
+  border-color: var(--color-corail);
+  color: var(--color-white);
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.85rem;
@@ -1296,6 +1297,23 @@ a {
 
 .questions-nav__btn:active {
   transform: translateY(1px);
+}
+
+.questions-nav__btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.questions-nav__btn--secondary {
+  background: var(--color-white);
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.questions-share-hint {
+  text-align: center;
+  margin-top: 14px;
 }
 
 /* ---------- Présentation "mockup téléphone" sur grand écran ---------- */
