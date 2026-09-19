@@ -104,8 +104,9 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
       <ul className="vocal-tips">
         <li>Soyez le plus naturel·le possible 🍀</li>
         <li>Ne lisez pas de texte 🤓</li>
+        <li>Parlez comme si vous laissiez un message vocal sur un répondeur 📞</li>
         <li>Parlez près de votre micro 🎙️</li>
-        <li>Ne dépassez pas 5 minutes ⏳</li>
+        <li>Ne dépassez pas 3 minutes ⏳</li>
       </ul>
 
       <div className="field">
