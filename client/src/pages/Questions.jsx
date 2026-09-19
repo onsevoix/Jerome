@@ -61,10 +61,7 @@ async function renderCardImage(card) {
   const ctx = canvas.getContext("2d");
   const colors = CARD_COLORS[card.color];
 
-  await Promise.all([
-    document.fonts.load("700 64px Inter"),
-    document.fonts.load("italic 600 46px Fraunces"),
-  ]);
+  await document.fonts.load("700 64px Inter");
 
   ctx.fillStyle = colors.bg;
   ctx.fillRect(0, 0, width, height);
@@ -82,8 +79,8 @@ async function renderCardImage(card) {
     ctx.fillText(line, width / 2, startY + i * lineHeight);
   });
 
-  ctx.font = "italic 600 46px Fraunces, Georgia, serif";
-  ctx.fillText("On se voix ?", width / 2, height - 110);
+  ctx.font = "600 40px Inter, sans-serif";
+  ctx.fillText("@onsevoix", width / 2, height - 110);
 
   return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
 }
