@@ -19,6 +19,10 @@ const CARD_COLORS = {
 };
 const COLORS = Object.keys(CARD_COLORS);
 
+// Numéro stable par question (position dans data/questions.js), conservé
+// même si l'ordre d'affichage est mélangé.
+const NUMBERED_QUESTIONS = questions.map((text, i) => ({ number: i + 1, text }));
+
 function shuffle(array) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -49,8 +53,8 @@ function buildDeck() {
   };
 
   const deck = [];
-  shuffle(questions).forEach((text, i) => {
-    deck.push({ type: "question", text, color: nextColor() });
+  shuffle(NUMBERED_QUESTIONS).forEach(({ number, text }, i) => {
+    deck.push({ type: "question", number, text, color: nextColor() });
     if ((i + 1) % PROMO_INTERVAL === 0) {
       deck.push({ type: "promo", text: PROMO_TEXT, color: nextColor() });
     }
@@ -92,6 +96,12 @@ async function renderCardImage(card) {
   ctx.fillStyle = colors.text;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
+
+  if (card.number) {
+    ctx.font = "700 32px Inter, sans-serif";
+    ctx.fillText(`Question ${card.number}`, width / 2, 140);
+  }
+
   ctx.font = "700 64px Inter, sans-serif";
 
   const maxWidth = width - 180;
@@ -292,6 +302,9 @@ export default function Questions() {
                 )}
                 {card.type === "promo" && (
                   <span className="question-card__kicker">💡 Astuce</span>
+                )}
+                {card.type === "question" && (
+                  <span className="question-card__kicker">Question {card.number}</span>
                 )}
                 <p>{card.text}</p>
               </div>
