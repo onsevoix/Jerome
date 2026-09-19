@@ -1316,6 +1316,16 @@ a {
   }
 }
 
+.question-card__arrow-hint {
+  position: absolute;
+  top: 72px;
+  right: 52px;
+  width: 56px;
+  height: 48px;
+  color: inherit;
+  opacity: 0.55;
+}
+
 .question-card__share {
   position: absolute;
   top: 18px;

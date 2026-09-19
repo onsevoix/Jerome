@@ -256,9 +256,24 @@ export default function Questions() {
                 onPointerCancel={isTop ? handlePointerUp : undefined}
               >
                 {isTop && card.type === "promo" && (
-                  <span className="question-card__share-hint" aria-hidden="true">
-                    <ShareIcon />
-                  </span>
+                  <>
+                    <span className="question-card__share-hint" aria-hidden="true">
+                      <ShareIcon />
+                    </span>
+                    <svg
+                      className="question-card__arrow-hint"
+                      viewBox="0 0 64 56"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 50C 16 46, 34 34, 46 14" />
+                      <path d="M35 10 L48 13 L43 24" />
+                    </svg>
+                  </>
                 )}
                 {isTop && card.type !== "promo" && (
                   <button
