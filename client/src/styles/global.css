@@ -678,19 +678,43 @@ a {
   color: var(--color-white);
 }
 
-.admin-sort {
-  margin: 16px 0;
+.admin-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-.admin-sort select {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-  border: 2px solid var(--color-rose);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  background: var(--color-white);
-  color: var(--color-ink);
+.admin-heading-row .legal-heading {
+  margin: 0;
+}
+
+.admin-sort-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: color-mix(in srgb, var(--color-ink) 10%, transparent);
+  color: color-mix(in srgb, var(--color-ink) 55%, white);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-sort-toggle:hover {
+  background: var(--color-violet);
+  color: var(--color-white);
+}
+
+.admin-sort-toggle svg {
+  transition: transform 0.2s ease;
+}
+
+.admin-sort-toggle[data-asc="true"] svg {
+  transform: rotate(180deg);
 }
 
 .admin-card {

@@ -292,11 +292,35 @@ export default function Admin() {
         </div>
       )}
 
-      <h3 className="legal-heading">
-        {tab === "participations"
-          ? `Participations (${filteredParticipations.length})`
-          : `Crushs vocaux (${declas.length})`}
-      </h3>
+      <div className="admin-heading-row">
+        <h3 className="legal-heading">
+          {tab === "participations"
+            ? `Participations (${filteredParticipations.length})`
+            : `Crushs vocaux (${declas.length})`}
+        </h3>
+        <button
+          type="button"
+          className="admin-sort-toggle"
+          data-asc={sortBy === "date-asc"}
+          onClick={() => setSortBy((s) => (s === "date-desc" ? "date-asc" : "date-desc"))}
+          aria-label={
+            sortBy === "date-desc"
+              ? "Trier du plus récent au plus ancien"
+              : "Trier du plus ancien au plus récent"
+          }
+          title={sortBy === "date-desc" ? "Plus récent d'abord" : "Plus ancien d'abord"}
+        >
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true">
+            <path
+              d="M8 3v10M8 13l-4-4M8 13l4-4"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
 
       {tab === "participations" && (
         <div className="admin-filter-tabs">
@@ -315,14 +339,6 @@ export default function Admin() {
           ))}
         </div>
       )}
-
-      <div className="field admin-sort">
-        <label htmlFor="admin-sort">Trier par</label>
-        <select id="admin-sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-          <option value="date-desc">Date (récent → ancien)</option>
-          <option value="date-asc">Date (ancien → récent)</option>
-        </select>
-      </div>
 
       {tab === "participations" &&
         filteredParticipations.map((p) => {
