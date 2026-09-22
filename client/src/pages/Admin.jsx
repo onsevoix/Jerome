@@ -49,6 +49,20 @@ function formatAvis(v) {
   return Number.isInteger(v) ? String(v) : v.toFixed(1).replace(".", ",");
 }
 
+function slugify(s) {
+  return (s ?? "")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+}
+
+function vocalFilename(p) {
+  const ext = p.vocal_path?.split(".").pop() || "mp3";
+  return `${slugify(p.prenom)}-${slugify(p.ville)}-${p.age}.${ext}`;
+}
+
 function sortItems(items, sortBy) {
   const arr = [...items];
   if (sortBy === "date-asc") {
@@ -77,6 +91,7 @@ export default function Admin() {
   const [expandedParticipations, setExpandedParticipations] = useState({});
   const [classementFilter, setClassementFilter] = useState("a-traiter");
   const [reviewer, setReviewer] = useState(() => localStorage.getItem(REVIEWER_KEY));
+  const [downloadingId, setDownloadingId] = useState(null);
 
   useEffect(() => {
     setSortBy("date-desc");
@@ -164,6 +179,27 @@ export default function Admin() {
     setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, commentaire } : p)));
     const { error } = await supabase.from("participations").update({ commentaire }).eq("id", id);
     if (error) setLoadError(error.message);
+  }
+
+  async function downloadVocal(p) {
+    if (!p.vocal_url || downloadingId) return;
+    setDownloadingId(p.id);
+    setLoadError(null);
+    try {
+      const res = await fetch(p.vocal_url);
+      if (!res.ok) throw new Error("Téléchargement impossible");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = vocalFilename(p);
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setLoadError("Impossible de télécharger ce vocal pour le moment.");
+    } finally {
+      setDownloadingId(null);
+    }
   }
 
   if (session === undefined) {
@@ -337,7 +373,34 @@ export default function Admin() {
                   </p>
                   <p className="field__hint">{new Date(p.created_at).toLocaleString("fr-FR")}</p>
                   {p.vocal_url ? (
-                    <audio controls src={p.vocal_url} style={{ width: "100%", marginTop: "8px" }} />
+                    <div className="admin-vocal">
+                      <audio controls src={p.vocal_url} />
+                      <button
+                        type="button"
+                        className="admin-vocal__download"
+                        onClick={() => downloadVocal(p)}
+                        disabled={downloadingId === p.id}
+                      >
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                          <path
+                            d="M12 4v12M12 16l-5-5M12 16l5-5"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M5 19h14"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        {downloadingId === p.id
+                          ? "Téléchargement…"
+                          : `Télécharger (${vocalFilename(p)})`}
+                      </button>
+                    </div>
                   ) : (
                     <p className="field__hint field__hint--error">Pas de vocal disponible</p>
                   )}

@@ -821,6 +821,41 @@ a {
   min-height: 72px;
 }
 
+.admin-vocal {
+  margin-top: 8px;
+}
+
+.admin-vocal audio {
+  width: 100%;
+}
+
+.admin-vocal__download {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-violet);
+  background: var(--color-white);
+  color: var(--color-violet);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-vocal__download:hover {
+  background: var(--color-violet);
+  color: var(--color-white);
+}
+
+.admin-vocal__download:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .page__lead-strong {
   font-weight: 600;
 }
