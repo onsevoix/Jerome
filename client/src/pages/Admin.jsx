@@ -374,31 +374,34 @@ export default function Admin() {
                   <p className="field__hint">{new Date(p.created_at).toLocaleString("fr-FR")}</p>
                   {p.vocal_url ? (
                     <div className="admin-vocal">
-                      <audio controls src={p.vocal_url} />
+                      <audio controls controlsList="nodownload" src={p.vocal_url} />
                       <button
                         type="button"
                         className="admin-vocal__download"
                         onClick={() => downloadVocal(p)}
                         disabled={downloadingId === p.id}
+                        aria-label={`Télécharger le vocal (${vocalFilename(p)})`}
+                        title={`Télécharger (${vocalFilename(p)})`}
                       >
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-                          <path
-                            d="M12 4v12M12 16l-5-5M12 16l5-5"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M5 19h14"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        {downloadingId === p.id
-                          ? "Téléchargement…"
-                          : `Télécharger (${vocalFilename(p)})`}
+                        {downloadingId === p.id ? (
+                          "…"
+                        ) : (
+                          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                            <path
+                              d="M12 4v12M12 16l-5-5M12 16l5-5"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M5 19h14"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        )}
                       </button>
                     </div>
                   ) : (

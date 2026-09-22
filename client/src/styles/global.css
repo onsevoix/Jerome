@@ -822,26 +822,28 @@ a {
 }
 
 .admin-vocal {
-  margin-top: 8px;
-}
-
-.admin-vocal audio {
-  width: 100%;
-}
-
-.admin-vocal__download {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-top: 8px;
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
-  border: 2px solid var(--color-violet);
-  background: var(--color-white);
-  color: var(--color-violet);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.8rem;
+}
+
+.admin-vocal audio {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-vocal__download {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: color-mix(in srgb, var(--color-ink) 10%, transparent);
+  color: color-mix(in srgb, var(--color-ink) 55%, white);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
