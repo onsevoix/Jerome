@@ -2,41 +2,57 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient.js";
 
-const STATUTS = ["Pré-accepté", "Accepté", "Pré-refusé", "Refusé"];
+const REVIEWER_KEY = "osv-admin-reviewer";
+const REVIEWERS = ["Jérôme", "Mahé"];
+const AVIS_FIELD = { Jérôme: "avis_jerome", Mahé: "avis_mahe" };
+const AVIS_SCALE = [
+  { value: 4, label: "Très bien" },
+  { value: 3, label: "Bien" },
+  { value: 2, label: "Moyen" },
+  { value: 1, label: "Pas bien" },
+];
+const AVIS_LABELS = Object.fromEntries(AVIS_SCALE.map((s) => [s.value, s.label]));
+
+const STATUT_OPTIONS = [
+  { value: "", label: "À traiter" },
+  { value: "Confirmé", label: "Confirmés" },
+  { value: "Diffusé", label: "Diffusés" },
+  { value: "Archivé", label: "Archivés" },
+];
 const STATUT_CLASS = {
-  Accepté: "statut-accepte",
-  "Pré-accepté": "statut-pre-accepte",
-  "Pré-refusé": "statut-pre-refuse",
-  Refusé: "statut-refuse",
+  Confirmé: "classement-confirme",
+  Diffusé: "classement-diffuse",
+  Archivé: "classement-archive",
 };
-const FAVORABLE_ORDER = ["Accepté", "Pré-accepté", "Pré-refusé", "Refusé", ""];
-const DEFAVORABLE_ORDER = ["Refusé", "Pré-refusé", "Pré-accepté", "Accepté", ""];
 
 const CLASSEMENT_FILTERS = [
   { value: "a-traiter", label: "À traiter" },
   { value: "confirmes", label: "Confirmés" },
+  { value: "diffuses", label: "Diffusés" },
   { value: "archives", label: "Archivés" },
 ];
 
 function matchesClassementFilter(p, filter) {
   if (filter === "confirmes") return p.classement === "Confirmé";
+  if (filter === "diffuses") return p.classement === "Diffusé";
   if (filter === "archives") return p.classement === "Archivé";
   return !p.classement;
+}
+
+function avisAverage(p) {
+  const vals = [p.avis_jerome, p.avis_mahe].filter((v) => v != null);
+  if (vals.length === 0) return null;
+  return vals.reduce((a, b) => a + b, 0) / vals.length;
+}
+
+function formatAvis(v) {
+  return Number.isInteger(v) ? String(v) : v.toFixed(1).replace(".", ",");
 }
 
 function sortItems(items, sortBy) {
   const arr = [...items];
   if (sortBy === "date-asc") {
     arr.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-  } else if (sortBy === "statut-favorable") {
-    arr.sort(
-      (a, b) => FAVORABLE_ORDER.indexOf(a.statut ?? "") - FAVORABLE_ORDER.indexOf(b.statut ?? "")
-    );
-  } else if (sortBy === "statut-defavorable") {
-    arr.sort(
-      (a, b) =>
-        DEFAVORABLE_ORDER.indexOf(a.statut ?? "") - DEFAVORABLE_ORDER.indexOf(b.statut ?? "")
-    );
   } else {
     arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   }
@@ -58,7 +74,9 @@ export default function Admin() {
   const [loadError, setLoadError] = useState(null);
   const [sortBy, setSortBy] = useState("date-desc");
   const [expandedDeclas, setExpandedDeclas] = useState({});
+  const [expandedParticipations, setExpandedParticipations] = useState({});
   const [classementFilter, setClassementFilter] = useState("a-traiter");
+  const [reviewer, setReviewer] = useState(() => localStorage.getItem(REVIEWER_KEY));
 
   useEffect(() => {
     setSortBy("date-desc");
@@ -115,16 +133,36 @@ export default function Admin() {
     setParticipations([]);
   }
 
-  async function updateStatut(id, statut) {
-    setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, statut } : p)));
-    const { error } = await supabase.from("participations").update({ statut }).eq("id", id);
+  function chooseReviewer(name) {
+    localStorage.setItem(REVIEWER_KEY, name);
+    setReviewer(name);
+  }
+
+  function toggleParticipation(id) {
+    setExpandedParticipations((prev) => ({ ...prev, [id]: !prev[id] }));
+  }
+
+  async function updateClassement(id, classement) {
+    setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, classement } : p)));
+    const { error } = await supabase
+      .from("participations")
+      .update({ classement: classement || null })
+      .eq("id", id);
     if (error) setLoadError(error.message);
   }
 
-  async function updateClassement(id, currentClassement, targetClassement) {
-    const classement = currentClassement === targetClassement ? null : targetClassement;
-    setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, classement } : p)));
-    const { error } = await supabase.from("participations").update({ classement }).eq("id", id);
+  async function updateAvis(id, currentValue, targetValue) {
+    if (!reviewer) return;
+    const field = AVIS_FIELD[reviewer];
+    const value = currentValue === targetValue ? null : targetValue;
+    setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, [field]: value } : p)));
+    const { error } = await supabase.from("participations").update({ [field]: value }).eq("id", id);
+    if (error) setLoadError(error.message);
+  }
+
+  async function updateCommentaire(id, commentaire) {
+    setParticipations((prev) => prev.map((p) => (p.id === id ? { ...p, commentaire } : p)));
+    const { error } = await supabase.from("participations").update({ commentaire }).eq("id", id);
     if (error) setLoadError(error.message);
   }
 
@@ -174,7 +212,7 @@ export default function Admin() {
   const filteredParticipations = sortedParticipations.filter((p) =>
     matchesClassementFilter(p, classementFilter)
   );
-  const sortedDeclas = sortItems(declas, sortBy.startsWith("statut") ? "date-desc" : sortBy);
+  const sortedDeclas = sortItems(declas, sortBy);
 
   return (
     <section>
@@ -201,6 +239,22 @@ export default function Admin() {
       </div>
 
       {loadError && <p className="form-status form-status--error">{loadError}</p>}
+
+      {tab === "participations" && (
+        <div className="admin-reviewer">
+          <span className="admin-reviewer__label">Vous êtes</span>
+          {REVIEWERS.map((r) => (
+            <button
+              key={r}
+              type="button"
+              className={`admin-reviewer__btn ${reviewer === r ? "active" : ""}`}
+              onClick={() => chooseReviewer(r)}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+      )}
 
       <h3 className="legal-heading">
         {tab === "participations"
@@ -231,68 +285,109 @@ export default function Admin() {
         <select id="admin-sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="date-desc">Date (récent → ancien)</option>
           <option value="date-asc">Date (ancien → récent)</option>
-          {tab === "participations" && (
-            <>
-              <option value="statut-favorable">Statut (favorable → défavorable)</option>
-              <option value="statut-defavorable">Statut (défavorable → favorable)</option>
-            </>
-          )}
         </select>
       </div>
 
       {tab === "participations" &&
-        filteredParticipations.map((p) => (
-          <div key={p.id} className="form-card admin-card">
-            <p>
-              <strong>{p.prenom}</strong> · {p.ville} · {p.age} ans
-            </p>
-            <p className="field__hint">
-              {p.email} · {p.instagram}
-            </p>
-            <p className="field__hint">{new Date(p.created_at).toLocaleString("fr-FR")}</p>
-            {p.vocal_url ? (
-              <audio controls src={p.vocal_url} style={{ width: "100%", marginTop: "8px" }} />
-            ) : (
-              <p className="field__hint field__hint--error">Pas de vocal disponible</p>
-            )}
-            <div className="field admin-card__statut">
-              <label htmlFor={`statut-${p.id}`}>Statut</label>
-              <select
-                id={`statut-${p.id}`}
-                className={STATUT_CLASS[p.statut] ?? ""}
-                value={p.statut ?? ""}
-                onChange={(e) => updateStatut(p.id, e.target.value || null)}
-              >
-                <option value="">À traiter</option>
-                {STATUTS.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="admin-card__classement">
+        filteredParticipations.map((p) => {
+          const isExpanded = Boolean(expandedParticipations[p.id]);
+          const avg = avisAverage(p);
+          return (
+            <div key={p.id} className="form-card admin-card">
               <button
                 type="button"
-                className={`admin-classement-btn admin-classement-btn--confirme ${
-                  p.classement === "Confirmé" ? "active" : ""
-                }`}
-                onClick={() => updateClassement(p.id, p.classement, "Confirmé")}
+                className="admin-card__summary"
+                aria-expanded={isExpanded}
+                onClick={() => toggleParticipation(p.id)}
               >
-                ✅ Confirmer
+                <span>
+                  <strong>{p.prenom}</strong> · {p.ville} · {p.age} ans
+                </span>
+                <svg className="admin-card__chevron" viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M4 6l4 4 4-4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </button>
-              <button
-                type="button"
-                className={`admin-classement-btn admin-classement-btn--archive ${
-                  p.classement === "Archivé" ? "active" : ""
-                }`}
-                onClick={() => updateClassement(p.id, p.classement, "Archivé")}
-              >
-                🗄️ Archiver
-              </button>
+
+              <div className="field admin-card__statut">
+                <select
+                  aria-label="Statut"
+                  className={STATUT_CLASS[p.classement] ?? ""}
+                  value={p.classement ?? ""}
+                  onChange={(e) => updateClassement(p.id, e.target.value)}
+                >
+                  {STATUT_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {isExpanded && (
+                <div className="admin-card__details">
+                  <p className="field__hint">
+                    {p.email} · {p.instagram}
+                  </p>
+                  <p className="field__hint">{new Date(p.created_at).toLocaleString("fr-FR")}</p>
+                  {p.vocal_url ? (
+                    <audio controls src={p.vocal_url} style={{ width: "100%", marginTop: "8px" }} />
+                  ) : (
+                    <p className="field__hint field__hint--error">Pas de vocal disponible</p>
+                  )}
+
+                  <div className="admin-avis">
+                    <p className="admin-avis__label">Avis</p>
+                    <div className="admin-avis__buttons">
+                      {AVIS_SCALE.map((s) => (
+                        <button
+                          key={s.value}
+                          type="button"
+                          disabled={!reviewer}
+                          className={`admin-avis__btn ${
+                            reviewer && p[AVIS_FIELD[reviewer]] === s.value ? "active" : ""
+                          }`}
+                          onClick={() => updateAvis(p.id, p[AVIS_FIELD[reviewer]], s.value)}
+                        >
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                    {!reviewer && (
+                      <p className="field__hint">
+                        Choisissez qui vous êtes en haut de page pour donner votre avis.
+                      </p>
+                    )}
+                    <p className="field__hint admin-avis__summary">
+                      Jérôme : {p.avis_jerome ? AVIS_LABELS[p.avis_jerome] : "—"} · Mahé :{" "}
+                      {p.avis_mahe ? AVIS_LABELS[p.avis_mahe] : "—"}
+                      {avg != null && <> · Moyenne : {formatAvis(avg)}/4</>}
+                    </p>
+                  </div>
+
+                  <div className="field admin-card__comment">
+                    <label htmlFor={`comment-${p.id}`}>Commentaire</label>
+                    <textarea
+                      id={`comment-${p.id}`}
+                      defaultValue={p.commentaire ?? ""}
+                      onBlur={(e) => {
+                        if (e.target.value !== (p.commentaire ?? "")) {
+                          updateCommentaire(p.id, e.target.value);
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
 
       {tab === "declas" &&
         sortedDeclas.map((d) => (
