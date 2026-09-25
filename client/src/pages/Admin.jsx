@@ -367,6 +367,7 @@ export default function Admin() {
                 </svg>
               </button>
 
+              <div className="admin-card__meta">
               <div className="field admin-card__statut">
                 <select
                   aria-label="Statut"
@@ -380,6 +381,22 @@ export default function Admin() {
                     </option>
                   ))}
                 </select>
+              </div>
+                <div className="admin-card__badges" aria-label="Avis donnés">
+                  {REVIEWERS.map((r) => {
+                    const done = p[AVIS_FIELD[r]] != null;
+                    return (
+                      <span
+                        key={r}
+                        className={`admin-badge${done ? " admin-badge--done" : ""}`}
+                        title={`${r} : ${done ? "avis donné" : "pas encore d'avis"}`}
+                        aria-label={`${r} : ${done ? "avis donné" : "pas encore d'avis"}`}
+                      >
+                        {r[0]}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
 
               {isExpanded && (
