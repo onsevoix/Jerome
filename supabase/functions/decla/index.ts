@@ -19,8 +19,42 @@ const transporter =
     ? nodemailer.createTransport({
         service: "gmail",
         auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
+        // Sans delais explicites, une connexion qui reste bloquee peut durer
+        // des minutes et faire tomber la fonction avant tout nouvel essai.
+        connectionTimeout: 10_000,
+        greetingTimeout: 10_000,
+        socketTimeout: 15_000,
       })
     : null;
+
+const SEND_ATTEMPTS = 3;
+const RETRY_DELAYS_MS = [1000, 3000];
+
+// Gmail echoue de temps en temps de facon ponctuelle (connexion coupee,
+// limite momentanee) : on retente quelques fois avant d'abandonner.
+async function sendWithRetry(options: {
+  from?: string;
+  to: string;
+  replyTo: string;
+  subject: string;
+  text: string;
+}) {
+  let lastErr: unknown;
+  for (let attempt = 1; attempt <= SEND_ATTEMPTS; attempt++) {
+    try {
+      await transporter!.sendMail(options);
+      if (attempt > 1) console.warn(`[decla] email envoye a la tentative ${attempt}`);
+      return;
+    } catch (err) {
+      lastErr = err;
+      console.error(`[decla] echec envoi email (tentative ${attempt}/${SEND_ATTEMPTS})`, err);
+      if (attempt < SEND_ATTEMPTS) {
+        await new Promise((r) => setTimeout(r, RETRY_DELAYS_MS[attempt - 1]));
+      }
+    }
+  }
+  throw lastErr;
+}
 
 async function notifyCelibataire({ celibataire, prenom, message, replyTo }: {
   celibataire: string;
@@ -41,7 +75,7 @@ async function notifyCelibataire({ celibataire, prenom, message, replyTo }: {
 
   if (!row?.email) return;
 
-  await transporter.sendMail({
+  await sendWithRetry({
     from: GMAIL_USER,
     to: row.email,
     replyTo,
