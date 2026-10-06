@@ -84,6 +84,37 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
     }
   }
 
+  // Un fichier depose qui n'est pas deja un vrai MP3 (AAC/MP4 d'un dictaphone,
+  // .mov, .ogg...) est converti en MP3, lisible partout y compris sur iPhone.
+  // Si la conversion echoue, on envoie l'original : le serveur en deduit le bon
+  // format a partir du contenu.
+  async function handleFileChange(e) {
+    const file = e.target.files?.[0] ?? null;
+    setRecordError(null);
+    if (!file) {
+      setVocalFile(null);
+      return;
+    }
+    const head = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+    const isMp3 =
+      (head[0] === 0x49 && head[1] === 0x44 && head[2] === 0x33) ||
+      (head[0] === 0xff && (head[1] & 0xe0) === 0xe0);
+    if (isMp3) {
+      setVocalFile(file);
+      return;
+    }
+    setVocalFile(null);
+    setConverting(true);
+    try {
+      const mp3Blob = await encodeToMp3(file);
+      setVocalFile(new File([mp3Blob], "vocal.mp3", { type: "audio/mp3" }));
+    } catch (err) {
+      setVocalFile(file);
+    } finally {
+      setConverting(false);
+    }
+  }
+
   function stopRecording() {
     mediaRecorderRef.current?.stop();
     setIsRecording(false);
@@ -131,8 +162,10 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
             <input
               type="file"
               accept="audio/*"
-              onChange={(e) => setVocalFile(e.target.files?.[0] ?? null)}
+              onChange={handleFileChange}
             />
+            {converting && <p className="field__hint">Préparation de votre vocal…</p>}
+            {recordError && <p className="field__hint field__hint--error">{recordError}</p>}
           </div>
         )}
 
@@ -180,7 +213,7 @@ export default function Step4Vocal({ vocalFile, setVocalFile, onNext, onBack }) 
         <button type="button" className="btn btn--secondary" onClick={onBack}>
           Retour
         </button>
-        <button type="button" className="btn" onClick={onNext} disabled={!vocalFile}>
+        <button type="button" className="btn" onClick={onNext} disabled={!vocalFile || converting}>
           Suivant
         </button>
       </div>

@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { checkRateLimit } from "../_shared/rateLimit.ts";
-import { isLikelyAudio } from "../_shared/sniffAudio.ts";
+import { detectAudioType, isLikelyAudio } from "../_shared/sniffAudio.ts";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 Mo
@@ -75,12 +75,15 @@ Deno.serve(async (req) => {
 
     if (insertError) throw insertError;
 
-    const ext = vocal.name.includes(".") ? vocal.name.split(".").pop() : "webm";
+    // Extension et Content-Type deduits du contenu reel du fichier, pas de son
+    // nom : un AAC/MP4 nomme ".mp3" etait illisible sur iPhone.
+    const detected = detectAudioType(headerBytes);
+    const ext = detected?.ext ?? (vocal.name.includes(".") ? vocal.name.split(".").pop() : "webm");
     const path = `${record.id}.${ext}`;
 
     const { error: uploadError } = await supabase.storage
       .from("vocaux")
-      .upload(path, vocal, { contentType: vocal.type || "audio/webm" });
+      .upload(path, vocal, { contentType: detected?.mime ?? (vocal.type || "audio/webm") });
 
     if (uploadError) throw uploadError;
 
